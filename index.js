@@ -1,10 +1,5 @@
 
 function login(){
-	if(!('contains' in String.prototype)) {
-       String.prototype.contains = function(str, startIndex) {
-                return -1 !== String.prototype.indexOf.call(this, str, startIndex);
-       };
- }
 	if (document.getElementById("txt_URL").value.trim() == ""
 			|| document.getElementById("txt_UN").value.trim() == ""
 				|| document.getElementById("txt_PW").value.trim() == "") {

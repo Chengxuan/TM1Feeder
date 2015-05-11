@@ -153,3 +153,9 @@ if(!('contains' in String.prototype)) {
                 return -1 !== String.prototype.indexOf.call(this, str, startIndex);
        };
  }
+
+if(!('trim' in String.prototype)) {
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, ''); 
+  }
+}
