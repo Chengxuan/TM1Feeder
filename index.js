@@ -31,6 +31,7 @@ function login(){
 
 		var rdiv = document.getElementById('div_result');
 		rdiv.innerHTML = "";
+		document.getElementById('div_result_null').innerHTML = "";
 		var data = res.value;
 		for(var i in data){
 			
