@@ -35,7 +35,7 @@ function login(){
 		var data = res.value;
 		for(var i in data){
 			
-			var rfs = data[i].Rules.toString().replace(/\n+/g,"<br/>").trim();
+			var rfs = data[i].Rules.toString().replace(/\n+/g,"").trim().replace(/;/g,";<br/><br/>");
 			if(rfs.length>0){
 				var rs = '';
 				var fs = '';
