@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Dummy sample</title>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="base64.js"></script>
+<script type="text/javascript" src="../antlr/TM1RulesParser.js"></script>
+<script type="text/javascript" src="../antlr/TM1RulesLexer.js"></script>
+<script type="text/javascript" src="../antlr/antlr3-all-min.js"></script>
+</head>
+
+<body>
+<br/>
+<br/>
+<br/>
+<div style="text-align:center;">
+<table width="100%">
+<tr><td style="text-align:right;" width="45%">URL</td><td style="text-align:left;"><input id="txt_URL" type="text" value="http://37.58.99.99:8028/api/v1/ModelCubes()?$expand=Dimensions"/></td></tr>
+<tr><td style="text-align:right;" width="45%">UsrName</td><td style="text-align:left;"><input id="txt_UN" type="text" value=""/></td></tr>
+<tr><td style="text-align:right;" width="45%">PassWd</td><td style="text-align:left;"><input id="txt_PW" type="text" value=""/></td></tr>
+</table>
+<br/>
+<button onclick="login();">Load</button>
+<br/>
+<br/>
+</div>
+<div id="div_result" style="text-align:center;">
+</div>
+<div id="div_result_null" style="text-align:center;"></div>
+</body>
+</html>
