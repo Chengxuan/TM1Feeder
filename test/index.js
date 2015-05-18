@@ -21,13 +21,8 @@ function login(){
 			
 			var rfs = data[i].Rules.toString();
 			rfs=rfs.replace(/(\r\n|\n|\r)/gm,"").replace(/\s+/g,"");
-			
-		     var cstream = new org.antlr.runtime.ANTLRStringStream(rfs);
-		    var  lexer = new TM1RulesLexer(cstream);
-		     var tstream = new org.antlr.runtime.CommonTokenStream(lexer);
-		    var  parser = new TM1RulesParser(tstream);
-		
-
+			var s = tm1parser.parse(rfs);
+			var x = s.RULES_FILE;
 		}
 	}, function(err) {
 		alert(err);
