@@ -64,7 +64,7 @@ function login(){
 				if (y == "RULE_DEF") {
 					var rarea = digstrings(jrules[x][y][0]);
 					var rexp = digstrings(jrules[x][y][1]);
-					if(pc(rexp,farea)&&(pc(fexp,rarea)||pc(rarea,fexp))){
+					if((pc(farea,rexp)||pc(rexp,farea))&&(pc(fexp,rarea)||pc(rarea,fexp))){
 					 atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td>test</td></tr>";
 					}else{
 						var temp = 0;					
