@@ -35,29 +35,51 @@ function login(){
 		var data = res.value;
 		for(var i in data){
 			
-			var rfs = data[i].Rules.toString().replace(/\n+/g,"").trim().replace(/;/g,";<br/><br/>");
+			var rfs = data[i].Rules.toString().trim().replace(/;\n+/g,";<br/><br/>");
 			if(rfs.length>0){
 				var rs = '';
 				var fs = '';
 				var ds = '';
-				if(rfs.contains('<br/>Feeders;<br/>')){
-					rs = rfs.split('<br/>Feeders;<br/>')[0];
-					fs = rfs.split('<br/>Feeders;<br/>')[1];
-				}else{
-					if(rfs.contains('<br/>feeders;<br/>')){
-						rs = rfs.split('<br/>feeders;<br/>')[0];
-					fs = rfs.split('<br/>feeders;<br/>')[1];
+				var atest = '';
+			var s = tm1parser.parse(rfs);
+			var jcontent = s.RULES_FILE;
+			var scontent = rfs.split(";<br/><br/>");
+
+
+
+			if(jcontent.length==2){
+				var jrules = jcontent[0].RULES;
+				var jfeeders = jcontent[1].FEEDERS;
+				b = jrules.length + jfeeders.length + 1;
+				var srules = scontent.splice(0,jrules.length);
+				var sfeeders = scontent.splice(1);
+				if(jfeeders.length==sfeeders.length){
+					rs = srules.join(";<br/><br/>");
+					fs = sfeeders.join(";<br/><br/>");
+					for(var f in jfeeders){
+		   	var farea = digstrings(jfeeders[f][0]);
+				var fexp = digstrings(jfeeders[f][1]);
+		for (var x in jrules) {
+			for (var y in jrules[x]) {
+				if (y == "RULE_DEF") {
+					var rarea = digstrings(jrules[x][y][0]);
+					var rexp = digstrings(jrules[x][y][1]);
+					if(pc(rexp,farea)&&(pc(fexp,rarea)||pc(rarea,fexp))){
+					 atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td>test</td></tr>";
 					}else{
-						if(rfs.contains('<br/>FEEDERS;<br/>')){
-						rs = rfs.split('<br/>FEEDERS;<br/>')[0];
-						fs = rfs.split('<br/>FEEDERS;<br/>')[1];
-						}else{
-						
-							rs = rfs;
-						}
+						var temp = 0;					
 					}
-					
 				}
+			}
+		}
+	
+	}
+				}
+			}else{
+				var jrules  = jcontent[0].RULES;
+				rs = scontent.join(";<br/><br/>");
+			}
+				
 				var dim = data[i].Dimensions;
 				for(var d in dim){
 				ds += dim[d].Name + '<br/>';	
@@ -73,7 +95,7 @@ function login(){
 				cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th><th width='100px'>Demesions</th>";
 				var ctb = document.createElement('tbody');
 				ctb.setAttribute("style", "text-align:center;");
-				ctb.innerHTML ="<tr><td>"+rs+"</td><td>"+fs+"</td><td>"+ds+"</td></tr>";
+				ctb.innerHTML = atest +"<tr><td>"+rs+"</td><td>"+fs+"</td><td>"+ds+"</td></tr>";
 				ctable.appendChild(cth);
 				ctable.appendChild(ctb);
 				cdiv.appendChild(ctable);
@@ -88,3 +110,43 @@ function login(){
 		alert(err);
 	},document.getElementById("txt_UN").value.trim(),document.getElementById("txt_PW").value.trim());
 }
+
+function pc(a1,a2){
+	if(a1&&a2){
+	for(var i=0;i<a2.length;i++){
+		if(a1.indexOf(a2[i])==-1){
+			return false;
+		}
+	}
+}
+	return true;
+}
+
+var digstrings = function myself(x) {
+	var tmp = [];
+	if (Array.isArray(x)) {
+		for (var y in x) {
+			tmp = tmp.concat(myself(x[y]));
+		}
+	} else {
+
+		if (x.STRING) {
+			tmp.push(x.STRING.toString().toLowerCase().trim());
+		} else {
+			var ps = Object.keys(x);
+			for (var j = 0; j < ps.length; j++) {
+				var nm = ps[j];
+				var v = x[nm];
+				if (Array.isArray(v)) {
+					tmp = tmp.concat(myself(v));
+				} else {
+					if (v.STRING) {
+						tmp.push(v.STRING.toString().toLowerCase().trim());
+					}
+
+				}
+			}
+		}
+	}
+	return tmp;
+};

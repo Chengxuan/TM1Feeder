@@ -6,7 +6,7 @@ rules=
     (skip p:pragma skip {return p} / skip r:ruleDef skip {return r} )* 
 
 skip = (eof/com)*
-eof =  [\n\t\r ]
+eof =  [\n\t\r ]/"<br/>"/"<br>"
 com = "#" [^\n]*
 
 feeders= skip kwFeeders  ";"  skip f:feederDef* skip {return f;}
