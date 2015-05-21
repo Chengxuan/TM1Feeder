@@ -35,7 +35,9 @@ function login(){
 		var data = res.value;
 		for(var i in data){
 			
-			var rfs = data[i].Rules.toString().trim().replace(/;\n+/g,";<br/><br/>");
+			var rfs = data[i].Rules.toString().trim();
+			rfs = removeComments(rfs);
+			rfs = rfs.replace(/;\n+/g,";<br/><br/>").replace(/\s+/g,"");
 			if(rfs.length>0){
 				var rs = '';
 				var fs = '';
@@ -43,7 +45,10 @@ function login(){
 				var atest = '';
 			var s = tm1parser.parse(rfs);
 			var jcontent = s.RULES_FILE;
-			var scontent = rfs.split(";<br/><br/>");
+			var scontent = rfs.split(";<br/><br/>").filter(Boolean);
+			for(var sc in scontent){
+				scontent[sc] = 	scontent[sc].replace(/</g,"&lt").replace(/>/g,"&gt");		
+			}
 
 
 
@@ -65,7 +70,7 @@ function login(){
 					var rarea = digstrings(jrules[x][y][0]);
 					var rexp = digstrings(jrules[x][y][1]);
 					if((pc(farea,rexp)||pc(rexp,farea))&&(pc(fexp,rarea)||pc(rarea,fexp))){
-					 atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td>test</td></tr>";
+					 atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td></td></tr>";
 					}else{
 						var temp = 0;					
 					}
@@ -111,42 +116,3 @@ function login(){
 	},document.getElementById("txt_UN").value.trim(),document.getElementById("txt_PW").value.trim());
 }
 
-function pc(a1,a2){
-	if(a1&&a2){
-	for(var i=0;i<a2.length;i++){
-		if(a1.indexOf(a2[i])==-1){
-			return false;
-		}
-	}
-}
-	return true;
-}
-
-var digstrings = function myself(x) {
-	var tmp = [];
-	if (Array.isArray(x)) {
-		for (var y in x) {
-			tmp = tmp.concat(myself(x[y]));
-		}
-	} else {
-
-		if (x.STRING) {
-			tmp.push(x.STRING.toString().toLowerCase().trim());
-		} else {
-			var ps = Object.keys(x);
-			for (var j = 0; j < ps.length; j++) {
-				var nm = ps[j];
-				var v = x[nm];
-				if (Array.isArray(v)) {
-					tmp = tmp.concat(myself(v));
-				} else {
-					if (v.STRING) {
-						tmp.push(v.STRING.toString().toLowerCase().trim());
-					}
-
-				}
-			}
-		}
-	}
-	return tmp;
-};

@@ -22,7 +22,9 @@ function xhrGet(url, callback, errback, username, password) {
 			if (xhr.status == 200) {
 				callback(parseJson(xhr.responseText));
 			}  
-			
+			else {
+				errback('Service not available, error code:' + xhr.status.toString());
+			}
 		}
 	
 	};
@@ -157,3 +159,75 @@ if(!('trim' in String.prototype)) {
     return this.replace(/^\s+|\s+$/g, ''); 
   }
 }
+
+
+function pc(a1,a2){
+	if(a1&&a2){
+	for(var i=0;i<a2.length;i++){
+		if(a1.indexOf(a2[i])==-1){
+			return false;
+		}
+	}
+}
+	return true;
+}
+
+function removeComments(origin){
+var tmp ="";
+if(origin.indexOf("#")!=-1){
+while(origin.indexOf("#")!=-1){
+	
+	if(origin.indexOf("#")>0){
+		tmp+=origin.substring(0,origin.indexOf("#"));
+			
+	}
+	if(origin.indexOf("\n")!=-1){
+	origin = origin.substring(origin.indexOf("\n",origin.indexOf("#")+1)+1);
+}else{
+origin = "";
+}	
+	if(origin.indexOf("#")==-1){
+		if(origin!=""){
+			tmp+=origin;	
+		}
+	
+	}
+}
+}else {
+tmp = origin;
+}
+tmp = tmp.replace(/ +/g,"");
+return tmp;
+}
+
+
+
+
+var digstrings = function myself(x) {
+	var tmp = [];
+	if (Array.isArray(x)) {
+		for (var y in x) {
+			tmp = tmp.concat(myself(x[y]));
+		}
+	} else {
+
+		if (x.STRING) {
+			tmp.push(x.STRING.toString().toLowerCase().trim());
+		} else {
+			var ps = Object.keys(x);
+			for (var j = 0; j < ps.length; j++) {
+				var nm = ps[j];
+				var v = x[nm];
+				if (Array.isArray(v)) {
+					tmp = tmp.concat(myself(v));
+				} else {
+					if (v.STRING) {
+						tmp.push(v.STRING.toString().toLowerCase().trim());
+					}
+
+				}
+			}
+		}
+	}
+	return tmp;
+};
