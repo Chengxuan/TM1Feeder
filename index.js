@@ -58,28 +58,43 @@ function login(){
 				b = jrules.length + jfeeders.length + 1;
 				var srules = scontent.splice(0,jrules.length);
 				var sfeeders = scontent.splice(1);
-				if(jfeeders.length==sfeeders.length){
-					rs = srules.join(";<br/><br/>");
-					fs = sfeeders.join(";<br/><br/>");
-					for(var f in jfeeders){
-		   	var farea = digstrings(jfeeders[f][0]);
-				var fexp = digstrings(jfeeders[f][1]);
-		for (var x in jrules) {
-			for (var y in jrules[x]) {
-				if (y == "RULE_DEF") {
-					var rarea = digstrings(jrules[x][y][0]);
-					var rexp = digstrings(jrules[x][y][1]);
-					if((pc(farea,rexp)||pc(rexp,farea))&&(pc(fexp,rarea)||pc(rarea,fexp))){
-					 atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td></td></tr>";
-					}else{
-						var temp = 0;					
+				if(jfeeders.length==sfeeders.length && jrules.length==srules.length){
+					//rs = srules.join(";<br/><br/>");
+					rs = "redundant feeders";
+					//fs = sfeeders.join(";<br/><br/>");
+					var feederchk = [];
+					for (var x in jrules) {
+							var atestfeeders = "";
+							for (var y in jrules[x]) {
+								if (y == "RULE_DEF") {
+									var rarea = digstrings(jrules[x][y][0]);
+									var rexp = digstrings(jrules[x][y][1]);
+									var brexp = rexp.slice(0);
+									for(var f in jfeeders){
+		   							var farea = digstrings(jfeeders[f][0]);
+										var fexp = digstrings(jfeeders[f][1]);
+										if((pc(farea,rexp)||pc(rexp,farea))&&(pc(fexp,rarea)||pc(rarea,fexp))){
+										 //atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td></td></tr>";
+										 atestfeeders+=sfeeders[f] + ";<br/><br/>";
+										 brexp = pr(brexp,farea);
+										 feederchk.push(f);
+										}
+									}
+									if(brexp.length>0){
+									atestfeeders+= "<font color=\"green\">" + brexp.join(",") +"=>" + rarea.join(",") +";</font><br/>";
+								}
+									atest +="<tr><td>"+srules[x] +"</td><td>"+atestfeeders+"</td><td></td></tr>";
+								}
+							}
+							
+						}
+						
+					for(var x=0;x<sfeeders.length;x++){
+						if(feederchk.indexOf(x.toString())==-1){
+								fs += sfeeders[x] + ";<br/><br/>";				
+						}
 					}
-				}
 			}
-		}
-	
-	}
-				}
 			}else{
 				var jrules  = jcontent[0].RULES;
 				rs = scontent.join(";<br/><br/>");
@@ -100,7 +115,7 @@ function login(){
 				cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th><th width='100px'>Demesions</th>";
 				var ctb = document.createElement('tbody');
 				ctb.setAttribute("style", "text-align:center;");
-				ctb.innerHTML = atest +"<tr><td>"+rs+"</td><td>"+fs+"</td><td>"+ds+"</td></tr>";
+				ctb.innerHTML = atest +"<tr><td>"+rs+"</td><td style=\"color:red;\">"+fs+"</td><td>"+ds+"</td></tr>";
 				ctable.appendChild(cth);
 				ctable.appendChild(ctb);
 				cdiv.appendChild(ctable);

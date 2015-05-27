@@ -172,6 +172,17 @@ function pc(a1,a2){
 	return true;
 }
 
+function pr(a1,a2){
+	if(a1&&a2){
+	for(var i=0;i<a2.length;i++){
+		if(a1.indexOf(a2[i])!=-1){
+			a1.splice(a1.indexOf(a2[i]),1);
+		}
+	}
+}
+	return a1;
+}
+
 function removeComments(origin){
 var tmp ="";
 if(origin.indexOf("#")!=-1){
@@ -218,8 +229,17 @@ var digstrings = function myself(x) {
 			for (var j = 0; j < ps.length; j++) {
 				var nm = ps[j];
 				var v = x[nm];
+				if( nm  == "AREA_ITEMS" && v.AREA_ITEM_SET){
+					tmp = tmp.concat(myself(v.AREA_ITEM_SET));
+				}
 				if (Array.isArray(v)) {
+					if(nm.toLowerCase() !="FUNCTION"){
 					tmp = tmp.concat(myself(v));
+					}else{
+						 if(x[nm][0].IDENTIFIER.toLowerCase()!="ATTRS"){
+						 tmp = tmp.concat(myself(v));
+						 } 					
+					}
 				} else {
 					if (v.STRING) {
 						tmp.push(v.STRING.toString().toLowerCase().trim());
