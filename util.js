@@ -211,8 +211,15 @@ tmp = tmp.replace(/ +/g,"");
 return tmp;
 }
 
-
-
+function cleanArray(a) {
+	var x = [];
+	for(var i=0;i<a.length;i++){
+	if(x.indexOf(a[i])==-1){
+		x.push(a[i]);
+	}
+}
+	return x;
+}
 
 var digstrings = function myself(x) {
 	var tmp = [];
@@ -249,5 +256,5 @@ var digstrings = function myself(x) {
 			}
 		}
 	}
-	return tmp;
+	return cleanArray(tmp);
 };
