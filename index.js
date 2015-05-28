@@ -73,7 +73,7 @@ function login(){
 									for(var f in jfeeders){
 		   							var farea = digstrings(jfeeders[f][0]);
 										var fexp = digstrings(jfeeders[f][1]);
-										if((pc(farea,rexp)||pc(rexp,farea))&&(pc(fexp,rarea)||pc(rarea,fexp))){
+										if((pc(rarea,fexp)||pc(fexp,rarea))&&cc(rexp,farea)){//(pc(fexp,rarea)||pc(rarea,fexp))){
 										 //atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td></td></tr>";
 										 atestfeeders+=sfeeders[f] + ";<br/><br/>";
 										 brexp = pr(brexp,farea);
@@ -81,7 +81,7 @@ function login(){
 										}
 									}
 									if(brexp.length>0){
-									atestfeeders+= "<font color=\"green\">" + brexp.join(",") +"=>" + rarea.join(",") +";</font><br/>";
+									atestfeeders+= "<font color=\"green\">[" + brexp.join(",") +"]=>[" + rarea.join(",") +"];</font><br/>";
 								}
 									atest +="<tr><td>"+srules[x] +"</td><td>"+atestfeeders+"</td><td></td></tr>";
 								}

@@ -172,6 +172,17 @@ function pc(a1,a2){
 	return true;
 }
 
+function cc(a1,a2){
+	if(a1&&a2){
+	for(var i=0;i<a2.length;i++){
+		if(a1.indexOf(a2[i])!=-1){
+			return true;
+		}
+	}
+}
+	return false;
+}
+
 function pr(a1,a2){
 	if(a1&&a2){
 	for(var i=0;i<a2.length;i++){
@@ -230,26 +241,26 @@ var digstrings = function myself(x) {
 	} else {
 
 		if (x.STRING) {
-			tmp.push(x.STRING.toString().toLowerCase().trim());
+			tmp.push(x.STRING.toString().trim());
 		} else {
 			var ps = Object.keys(x);
 			for (var j = 0; j < ps.length; j++) {
 				var nm = ps[j];
 				var v = x[nm];
-				if( nm  == "AREA_ITEMS" && v.AREA_ITEM_SET){
+				if( nm.toString()  == "AREA_ITEMS" && v.AREA_ITEM_SET){
 					tmp = tmp.concat(myself(v.AREA_ITEM_SET));
 				}
 				if (Array.isArray(v)) {
-					if(nm.toLowerCase() !="FUNCTION"){
+					if(nm.toString() !="FUNCTION"){
 					tmp = tmp.concat(myself(v));
 					}else{
-						 if(x[nm][0].IDENTIFIER.toLowerCase()!="ATTRS"){
+						 if(x[nm][0].IDENTIFIER.toString()!="ATTRS"){
 						 tmp = tmp.concat(myself(v));
 						 } 					
 					}
 				} else {
 					if (v.STRING) {
-						tmp.push(v.STRING.toString().toLowerCase().trim());
+						tmp.push(v.STRING.toString().trim());
 					}
 
 				}
