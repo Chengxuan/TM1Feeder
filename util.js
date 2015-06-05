@@ -254,8 +254,14 @@ var digstrings = function myself(x) {
 					if(nm.toString() !="FUNCTION"){
 					tmp = tmp.concat(myself(v));
 					}else{
-						 if(x[nm][0].IDENTIFIER.toString()!="ATTRS"){
-						 tmp = tmp.concat(myself(v));
+						 switch(x[nm][0].IDENTIFIER.toString()) {
+						 	case "ATTRS":
+						 	break;
+						 	case "ATTRN":
+						 	break;
+						 	default:
+						 	 tmp = tmp.concat(myself(v));
+						 	 break;
 						 } 					
 					}
 				} else {
