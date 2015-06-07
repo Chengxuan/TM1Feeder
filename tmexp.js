@@ -156,11 +156,18 @@ var digstrings = function myself(x) {
 					if(nm.toString() !="FUNCTION"){
 						switch(nm.toString()) {
 							case "*":
-							tmp.push(myself(v[0]));
-							tmp.push(myself(v[1]));
+							if(v[0].NUMBER){
+								if(v[1].NUMBER){tmp=[];}else{tmp=myself(v[1]);}
+							}else{
+								if(v[1].NUMBER){tmp=myself(v[0]);}else{tmp.push(myself(v[0]));tmp.push(myself(v[1]));}
+							}
 							break;
-							case "/":
-							tmp = mergeArray(tmp,myself(v[1]));
+							case "\\":
+							if(v[0].NUMBER){
+								if(v[1].NUMBER){tmp=[];}else{tmp=myself(v[1]);}
+							}else{
+								if(v[1].NUMBER){tmp=myself(v[0]);}else{tmp.push(myself(v[0]));tmp.push(myself(v[1]));}
+							}
 							break;
 							default:
 							tmp = mergeArray(tmp,myself(v));
@@ -176,6 +183,10 @@ var digstrings = function myself(x) {
 						 	case "IF":
 						 	tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[1]));
 						 	tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[2]));
+						 	break;
+						 	case "DB":
+						 	v[1].EXPR_LIST.shift();
+						 	tmp = mergeArray(tmp,myself(v[1].EXPR_LIST));
 						 	break;
 						 	default:
 						 	 tmp = mergeArray(tmp,myself(v[1].EXPR_LIST));

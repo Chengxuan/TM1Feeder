@@ -69,11 +69,28 @@ function login(){
 												fexp = fexp[0];
 											}
 										for(var ex in rexp){
-										if((fullyContains(rarea,fexp)||fullyContains(fexp,[rarea[0]]))&&hasIntersection(rexp[ex],farea)){//(pc(fexp,rarea)||pc(rarea,fexp))){
+											 if(hasEmptyArray(brexp)){
+										 	break;
+										 }
+										if(fullyContains(fexp,[rarea[0]])&&hasIntersection(rexp[ex],farea)){//(pc(fexp,rarea)||pc(rarea,fexp))){
 										 //atest +="<tr><td>"+srules[x] +"</td><td>"+sfeeders[f]+"</td><td></td></tr>";
-										 atestfeeders+=sfeeders[f] + ";<br/><br/>";
+										 if(fullyContains(fexp,rarea)){
+										 	if(atestfeeders.indexOf(sfeeders[f])==-1){
+										 		 atestfeeders+=sfeeders[f] + ";<br/><br/>";
+										 	}
+										
 										 brexp[ex] = excludeSame(brexp[ex],farea);
 										 feederchk.push(f);
+										
+										}else{
+										 if(excludeSame(fexp,[rarea[0]]).length==0){
+										if(atestfeeders.indexOf(sfeeders[f])==-1){
+										 		 atestfeeders+=sfeeders[f] + ";<br/><br/>";
+										 	}
+										 brexp[ex] = excludeSame(brexp[ex],farea);
+										 feederchk.push(f);
+										}
+										}
 										}
 									}
 										
