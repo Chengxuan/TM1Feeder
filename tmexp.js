@@ -185,8 +185,9 @@ var digstrings = function myself(x) {
 						 	tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[2]));
 						 	break;
 						 	case "DB":
-						 	v[1].EXPR_LIST.shift();
+						 	var xx = v[1].EXPR_LIST.shift();
 						 	tmp = mergeArray(tmp,myself(v[1].EXPR_LIST));
+						 	v[1].EXPR_LIST.unshift(xx);
 						 	break;
 						 	default:
 						 	 tmp = mergeArray(tmp,myself(v[1].EXPR_LIST));
