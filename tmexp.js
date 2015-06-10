@@ -169,6 +169,13 @@ var digstrings = function myself(x) {
 								if(v[1].NUMBER){tmp=myself(v[0]);}else{tmp.push(myself(v[0]));tmp.push(myself(v[1]));}
 							}
 							break;
+							case "/":
+							if(v[0].NUMBER){
+								if(v[1].NUMBER){tmp=[];}else{tmp=myself(v[1]);}
+							}else{
+								if(v[1].NUMBER){tmp=myself(v[0]);}else{tmp.push(myself(v[0]));tmp.push(myself(v[1]));}
+							}
+							break;
 							default:
 							tmp = mergeArray(tmp,myself(v));
 							break;						
