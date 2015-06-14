@@ -98,7 +98,7 @@ var digstringsa = function myself(x) {
 	} else {
 
 		if (x.STRING) {
-			tmp.push(x.STRING.toString().trim());
+			tmp.push(x.STRING.toString().trim().toLowerCase());
 		} else {
 			var ps = Object.keys(x);
 			for (var j = 0; j < ps.length; j++) {
@@ -123,7 +123,7 @@ var digstringsa = function myself(x) {
 					}
 				} else {
 					if (v.STRING) {
-						tmp.push(v.STRING.toString().trim());
+						tmp.push(v.STRING.toString().trim().toLowerCase());
 					}
 
 				}
@@ -142,18 +142,18 @@ var digstrings = function myself(x) {
 	} else {
 
 		if (x.STRING) {
-			tmp.push(x.STRING.toString().trim());
+			tmp.push(x.STRING.toString().trim().toLowerCase());
 		} else {
 			var ps = Object.keys(x);
 			for (var j = 0; j < ps.length; j++) {
 				var nm = ps[j];
 				var v = x[nm];
-				if( nm.toString()  == "AREA_ITEMS" && v.AREA_ITEM_SET){
+				if( nm.toString().toUpperCase()  == "AREA_ITEMS" && v.AREA_ITEM_SET){
 					tmp = mergeArray(tmp,myself(v.AREA_ITEM_SET));
 				}
 				if (Array.isArray(v)) {
 					var ttmp = [];
-					if(nm.toString() !="FUNCTION"){
+					if(nm.toString().toUpperCase() !="FUNCTION"){
 						switch(nm.toString()) {
 							case "*":
 							if(v[0].NUMBER){
@@ -182,7 +182,7 @@ var digstrings = function myself(x) {
 						}
 
 					}else{
-						 switch(x[nm][0].IDENTIFIER.toString()) {
+						 switch(x[nm][0].IDENTIFIER.toString().toUpperCase()) {
 						 	case "ATTRS":
 						 	break;
 						 	case "ATTRN":
@@ -203,7 +203,7 @@ var digstrings = function myself(x) {
 					}
 				} else {
 					if (v.STRING) {
-						tmp.push(v.STRING.toString().trim());
+						tmp.push(v.STRING.toString().trim().toLowerCase());
 					}
 
 				}
