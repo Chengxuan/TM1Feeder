@@ -59,7 +59,9 @@ function removeComments(origin) {
         while (origin.indexOf("#") != -1) {
 
             if (origin.indexOf("#") > 0) {
+                //tmp += //origin.substring(0, origin.indexOf("#"));
                 tmp += origin.substring(0, origin.indexOf("#"));
+                origin = origin.substring( origin.indexOf("#"));
 
             }
             if (origin.indexOf("\n") != -1) {
@@ -92,7 +94,7 @@ function removeDuplicates(a) {
 }
 
 var digstrings = function myself(abstree, cube) {
-    cube = cube.replace(/ /g,'').trim().toLowerCase();
+    cube = cube.replace(/ +/g,'').trim().toLowerCase();
     var tmp = [];
     if (Array.isArray(abstree)) {
         for (var y in abstree) {
@@ -101,7 +103,7 @@ var digstrings = function myself(abstree, cube) {
     } else {
 
         if (abstree.STRING) {
-            tmp.push(cube +"'"+ abstree.STRING.toString().trim().toLowerCase());
+            tmp.push(cube+ ":"+ abstree.STRING.toString().trim().toLowerCase());
         } else {
             var ps = Object.keys(abstree);
             for (var j = 0; j < ps.length; j++) {
@@ -188,7 +190,7 @@ var digstrings = function myself(abstree, cube) {
                     }
                 } else {
                     if (v.STRING) {
-                        tmp.push(cube + "'"+ v.STRING.toString().trim().toLowerCase());
+                        tmp.push(cube +":"+ v.STRING.toString().trim().toLowerCase());
                     }
 
                 }

@@ -103,28 +103,34 @@ function login() {
         if (rdv.length > 0) {
 
             var feederchk = [];
-           /* for (var i = 0; i < rdv.length; i++) {
-                for (var j = i == 0 ? 0 : rdv[i - 1]; j < rdv[i]; j++) {
-                    var rea = trc[j].rarea.slice(0);
-                    var rex = trc[j].rexp.slice(0);
+          /* for (var a = 0; a < rdv.length; a++) {
+                for (var b = a == 0 ? 0 : rdv[a - 1]; b < rdv[a]; b++) {
+                    var rea = trc.slice(0)[b].rarea.slice(0);
+                    var rex = trc.slice(0)[b].rexp.slice(0);
                     var brex = rex.slice(0);
-                    for (var f in tfc) {
-                        var fea = tfc[f].farea.slice(0);
-                        var fex = tfc[f].fexp.slice(0);
+                    for (var g in tfc) {
+                        var fea = tfc.slice(0)[g].farea.slice(0);
+                        var fex = tfc.slice(0)[g].fexp.slice(0);
                         if (fea.length > 0 && fex.length > 0) {
-                            for (var ex in rex) {
+                            for (var eq in rex) {
                                 if (hasEmptyArray(brex)) {
                                     break;
                                 }
-                                if (fullyContains(fex, [rea[0]]) && hasIntersection(rex[ex], fea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
+                                if (fullyContains(fex, [rea[0]]) && hasIntersection(rex[eq], fea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
                                     if (fullyContains(fex, rea)) {
-                                        brex[ex] = excludeSame(brex[ex], fea);
-                                        feederchk.push(f);
+                                        brex[eq] = excludeSame(brex[eq], fea);
+                                        feederchk.push(g);
 
                                     } else {
                                         if (excludeSame(fex, [rea[0]]).length == 0) {
-                                            brex[ex] = excludeSame(brex[ex], fea);
-                                            feederchk.push(f);
+                                            brex[eq] = excludeSame(brex[eq], fea);
+                                            feederchk.push(g);
+                                        }else{
+
+                                            if (!hasIntersection(fex, [rea[0]])) {
+                                                brex[eq] = excludeSame(brex[eq], fea);
+                                                feederchk.push(g);
+                                            }
                                         }
                                     }
                                 }
@@ -143,7 +149,7 @@ function login() {
                 for (var j = i == 0 ? 0 : rdv[i - 1]; j < rdv[i]; j++) {
                     var rarea = trc[j].rarea;
                     var rexp = trc[j].rexp;
-                    var brexp = rexp.slice(0);
+                    var brexp = rexp;
                     var atestfeeders = "";
                     for (var f in tfc) {
                         var farea = tfc[f].farea;
@@ -158,7 +164,11 @@ function login() {
                                     if (fullyContains(fexp, rarea)) {
                                         if (atestfeeders.indexOf(sfc[f]) == -1) {
                                             if (f >= fdv[i]) {
-                                                atestfeeders += "<font color=\"blue\">"+ sfc[f] + ";</font><br/><br/>";
+                                                var indtem = 0;
+                                                for(var ti=0;ti<fdv.length;ti++){
+                                                    if(f<fdv[ti]){indtem=ti;break;}
+                                                }
+                                                atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
                                             } else {
                                                 atestfeeders += sfc[f] + ";<br/><br/>";
                                             }
@@ -172,7 +182,7 @@ function login() {
                                                 if (f >= fdv[i]) {
                                                     var indtem = 0;
                                                     for(var ti=0;ti<fdv.length;ti++){
-                                                        if(f<fdv[ti]){indtem=ti-1;break;}
+                                                        if(f<fdv[ti]){indtem=ti;break;}
                                                     }
                                                     atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
                                                 } else {
@@ -182,12 +192,12 @@ function login() {
                                             brexp[ex] = excludeSame(brexp[ex], farea);
                                             feederchk.push(f);
                                         }else{
-                                            if (!hasIntersection(fexp, [rarea[0]])) {
+                                            if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length) {
                                                 if (atestfeeders.indexOf(sfc[f]) == -1) {
                                                     if (f >= fdv[i]) {
                                                         var indtem = 0;
                                                         for(var ti=0;ti<fdv.length;ti++){
-                                                            if(f<fdv[ti]){indtem=ti-1;break;}
+                                                            if(f<fdv[ti]){indtem=ti;break;}
                                                         }
                                                         atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
                                                     } else {
@@ -218,26 +228,26 @@ function login() {
                 if(fs.length>0){
                     atest += "<tr><td>" + rs + "</td><td style=\"color:red;\">" + fs + "</td></tr>";
                 }
-if(atest.length>0) {
-    rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";
-    var cdiv = document.createElement('div');
-    cdiv.setAttribute("id", "div_" + rnames[i]);
-    cdiv.setAttribute("style", "display:none;text-align:center;");
-    var ctable = document.createElement('table');
-    ctable.setAttribute("border", "1");
-    var cth = document.createElement('thead');
-    cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th>";
-    var ctb = document.createElement('tbody');
-    ctb.setAttribute("style", "text-align:center;");
-    ctb.innerHTML = atest;
-    ctable.appendChild(cth);
-    ctable.appendChild(ctb);
-    cdiv.appendChild(ctable);
-    rdiv.appendChild(cdiv);
-}
+                if (atest.length > 0) {
+                    rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";
+                    var cdiv = document.createElement('div');
+                    cdiv.setAttribute("id", "div_" + rnames[i]);
+                    cdiv.setAttribute("style", "display:none;text-align:center;");
+                    var ctable = document.createElement('table');
+                    ctable.setAttribute("border", "1");
+                    var cth = document.createElement('thead');
+                    cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th>";
+                    var ctb = document.createElement('tbody');
+                    ctb.setAttribute("style", "text-align:center;");
+                    ctb.innerHTML = atest;
+                    ctable.appendChild(cth);
+                    ctable.appendChild(ctb);
+                    cdiv.appendChild(ctable);
+                    rdiv.appendChild(cdiv);
+                }else{
+                    document.getElementById('div_result_null').innerHTML += rnames[i] + "<br/>";
+                }
             }
-
-        } else {
 
         }
     }, function (err) {
