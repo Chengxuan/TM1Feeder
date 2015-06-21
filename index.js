@@ -207,7 +207,7 @@ function login() {
                     if (!hasEmptyArray(brexp)) {
                         atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
                     }
-                    atest += "<tr><td>" + src[j] + "</td><td>" + atestfeeders + "</td><td></td></tr>";
+                    atest += "<tr><td>" + src[j] + "</td><td>" + atestfeeders + "</td></tr>";
                 }
 
                 for (var y = i == 0 ? 0 : fdv[i - 1]; y < fdv[i]; y++) {
