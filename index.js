@@ -158,7 +158,35 @@ function login() {
                         if (farea.length > 0 && fexp.length > 0) {
                             for (var ex in rexp) {
                                 if (hasEmptyArray(brexp)) {
-                                    break;
+                                    if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
+                                        if (fullyContains(fexp, rarea)) {
+                                            if (atestfeeders.indexOf(sfc[f]) == -1) {
+                                                    atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                            }
+                                            feederchk.push(f);
+
+                                        } else {
+                                            var count = fexp.length;
+                                            if (excludeSame(fexp, [rarea[0]]).length == 0) {
+                                                if (atestfeeders.indexOf(sfc[f]) == -1) {
+                                                    atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                                }
+                                                brexp[ex] = excludeSame(brexp[ex], farea);
+                                                feederchk.push(f);
+                                            }else{
+                                                count = count =fexp.length;
+                                                if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length-count) {
+                                                    if (atestfeeders.indexOf(sfc[f]) == -1) {
+                                                        atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                                    }
+                                                    brexp[ex] = excludeSame(brexp[ex], farea);
+                                                    feederchk.push(f);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    continue;
                                 }
                                 if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
                                     if (fullyContains(fexp, rarea)) {
@@ -177,6 +205,7 @@ function login() {
                                         feederchk.push(f);
 
                                     } else {
+                                        var count = fexp.length;
                                         if (excludeSame(fexp, [rarea[0]]).length == 0) {
                                             if (atestfeeders.indexOf(sfc[f]) == -1) {
                                                 if (f >= fdv[i]) {
@@ -192,7 +221,8 @@ function login() {
                                             brexp[ex] = excludeSame(brexp[ex], farea);
                                             feederchk.push(f);
                                         }else{
-                                            if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length) {
+                                            count = count =fexp.length;
+                                            if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length-count) {
                                                 if (atestfeeders.indexOf(sfc[f]) == -1) {
                                                     if (f >= fdv[i]) {
                                                         var indtem = 0;
