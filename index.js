@@ -256,7 +256,7 @@ function login() {
                     }
                 }
                 if(fs.length>0){
-                    atest += "<tr><td>" + rs + "</td><td style=\"color:red;\">" + fs + "</td></tr>";
+                    atest += "<tr><td>" + rs + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
                 }
                 if (atest.length > 0) {
                     rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";

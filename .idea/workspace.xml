@@ -67,10 +67,10 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7461929">
-              <caret line="179" column="128" selection-start-line="179" selection-start-column="128" selection-end-line="179" selection-end-column="128" />
+            <state vertical-scroll-proportion="0.39086294">
+              <caret line="258" column="75" selection-start-line="258" selection-start-column="75" selection-end-line="258" selection-end-column="75" />
               <folding>
-                <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+                <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -298,7 +298,13 @@
       <option name="project" value="LOCAL" />
       <updated>1434931025365</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Overfeeding new Look">
+      <created>1434933511693</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1434933511693</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -307,6 +313,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24597365" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -316,7 +323,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -339,7 +345,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Format" />
     <MESSAGE value="Crossing Cubes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Crossing Cubes" />
+    <MESSAGE value="Overfeeding new Look" />
+    <option name="LAST_COMMIT_MESSAGE" value="Overfeeding new Look" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -383,7 +390,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="184" column="79" selection-start-line="184" selection-start-column="79" selection-end-line="184" selection-end-column="79" />
           <folding>
-            <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+            <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -453,7 +460,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="194" column="40" selection-start-line="194" selection-start-column="40" selection-end-line="194" selection-end-column="40" />
           <folding>
-            <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+            <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -523,7 +530,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+            <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -675,7 +682,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+            <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -787,10 +794,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7461929">
-          <caret line="179" column="128" selection-start-line="179" selection-start-column="128" selection-end-line="179" selection-end-column="128" />
+        <state vertical-scroll-proportion="0.39086294">
+          <caret line="258" column="75" selection-start-line="258" selection-start-column="75" selection-end-line="258" selection-end-column="75" />
           <folding>
-            <marker date="1434933416772" expanded="true" signature="13894:13904" placeholder="..." />
+            <marker date="1434933605197" expanded="true" signature="13894:13905" placeholder="..." />
           </folding>
         </state>
       </provider>
