@@ -147,6 +147,11 @@ var digstrings = function myself(abstree, cube) {
                                     }
                                 }
                                 break;
+                            case "^":
+                                if (v[0].NUMBER) {
+                                    tmp = myself(v[0], cube);
+                                }
+                                break;
                             case "/":
                                 if (v[0].NUMBER) {
                                     if (v[1].NUMBER) {
@@ -179,7 +184,7 @@ var digstrings = function myself(abstree, cube) {
                                 var exprs = Object.keys(v[1].EXPR_LIST[0]);
                                     var ttmp = [];
                                     var tttmp = [];
-                                if (exprs.indexOf("=")!=-1||exprs.indexOf(">=")!=-1||exprs.indexOf("<=")!=-1||exprs.indexOf("@=")!=-1) {
+                                if (exprs.indexOf("=")!=-1||exprs.indexOf(">=")!=-1||exprs.indexOf("<=")!=-1||exprs.indexOf("<>")!=-1) {
                                     ttmp = myself(v[1].EXPR_LIST[0], cube);
                                     ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[1], cube));
                                     tttmp = myself(v[1].EXPR_LIST[1], cube);
