@@ -26,11 +26,15 @@ function login() {
         var rnames = [];
         for (var i in data) {
             var rfs = data[i].Rules.toString().trim();
+            var backuporigin = tm1syntaxparser.parse(rfs);
             rfs = removeComments(rfs);
+	    
             rfs = rfs.replace(/;\n+/g, ";<br/><br/>").replace(/\s+/g, "");
+	    
             if (rfs.length > 0) {
                 var s = tm1parser.parse(rfs);
                 var jcontent = s.RULES_FILE;
+		rfs = tm1syntaxparser.parse(rfs);
                 var scontent = rfs.split(";<br/><br/>").filter(Boolean);
                 for (var sc in scontent) {
                     scontent[sc] = scontent[sc].replace(/</g, "&lt").replace(/>/g, "&gt");
@@ -255,7 +259,11 @@ function login() {
                         fs += sfc[y] + ";<br/><br/>";
                     }
                 }
+		var crs = document.createElement('td');
+		var cfs = document.createElement('td');
+		cfs.setAttribute("style",
                 if(fs.length>0){
+		
                     atest += "<tr><td>" + rs + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
                 }
                 if (atest.length > 0) {
