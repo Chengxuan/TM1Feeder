@@ -28,9 +28,9 @@ function login() {
             var rfs = data[i].Rules.toString().trim();
             var backuporigin = tm1syntaxparser.parse(rfs);
             rfs = removeComments(rfs);
-	    
+
             rfs = rfs.replace(/;\n+/g, ";<br/><br/>").replace(/\s+/g, "");
-	    
+
             if (rfs.length > 0) {
                 var s = tm1parser.parse(rfs);
                 var jcontent = s.RULES_FILE;
@@ -154,7 +154,7 @@ function login() {
                     var rarea = trc[j].rarea;
                     var rexp = trc[j].rexp;
                     var brexp = rexp;
-                    var atestfeeders = "";
+                    var atestfeeders = '';
                     for (var f in tfc) {
                         var farea = tfc[f].farea;
                         var fexp = tfc[f].fexp;
@@ -251,6 +251,8 @@ function login() {
                     if (!hasEmptyArray(brexp)) {
                         atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
                     }
+                    var srcj = document.createElement("td")
+
                     atest += "<tr><td>" + src[j] + "</td><td>" + atestfeeders + "</td></tr>";
                 }
 
@@ -259,12 +261,10 @@ function login() {
                         fs += sfc[y] + ";<br/><br/>";
                     }
                 }
-		var crs = document.createElement('td');
-		var cfs = document.createElement('td');
-		cfs.setAttribute("style",
+
                 if(fs.length>0){
-		
-                    atest += "<tr><td>" + rs + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
+
+                    atest += "<tr><td>" + backuporigin + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
                 }
                 if (atest.length > 0) {
                     rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";

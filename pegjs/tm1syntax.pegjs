@@ -6,7 +6,7 @@ rules=
 
 skip = x:(eof/com)* {return x.join("");}
 eof =  x:[\n\t\r ]{return x;}/"<br/>"{return "<br/>";}/"<br>" {return "<br/>";}
-com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("") + "</font>";}
+com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font>";}
 
 feeders= a:skip x:kwFeeders  +";"  c:skip f:feederDef* d:skip {return a+x+";"+c+f.join("")+d;}
 

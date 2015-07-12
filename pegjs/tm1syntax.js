@@ -52,7 +52,7 @@ tm1syntaxparser = (function() {
         peg$c16 = { type: "literal", value: "#", description: "\"#\"" },
         peg$c17 = /^[^\n]/,
         peg$c18 = { type: "class", value: "[^\\n]", description: "[^\\n]" },
-        peg$c19 = function(x) {return "<font color='green'>#"+x.join("") + "</font>";},
+        peg$c19 = function(x) {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font>";},
         peg$c20 = ";",
         peg$c21 = { type: "literal", value: ";", description: "\";\"" },
         peg$c22 = function(a, x, c, f, d) {return a+x+";"+c+f.join("")+d;},
@@ -123,9 +123,7 @@ tm1syntaxparser = (function() {
         peg$c86 = function(l, a, b, r) {return l+a+"@<="+b+r;},
         peg$c87 = "@>=",
         peg$c88 = { type: "literal", value: "@>=", description: "\"@>=\"" },
-        peg$c89 = function(l, a, b, r) {return l+a+"@>="+b
-
-        +r;},
+        peg$c89 = function(l, a, b, r) {return l+a+"@>="+b+r;},
         peg$c90 = "+",
         peg$c91 = { type: "literal", value: "+", description: "\"+\"" },
         peg$c92 = function(l, a, b, r) {return l+a+"+"+b+r;},
@@ -185,9 +183,7 @@ tm1syntaxparser = (function() {
         peg$c132 = function(s) {return s;},
         peg$c133 = function(a) {return a;},
         peg$c134 = function(i) {return "<font color='grey'><b>"+i+"</b></font>";},
-        peg$c135 = function(s) {return "<font color='grey'><b>"+s
-
-        +"</b></font>";},
+        peg$c135 = function(s) {return "<font color='grey'><b>"+s+"</b></font>";},
         peg$c136 = "{",
         peg$c137 = { type: "literal", value: "{", description: "\"{\"" },
         peg$c138 = "}",
@@ -297,12 +293,8 @@ tm1syntaxparser = (function() {
         peg$c230 = { type: "class", value: "[+]", description: "[+]" },
         peg$c231 = /^[\-]/,
         peg$c232 = { type: "class", value: "[\\-]", description: "[\\-]" },
-        peg$c233 = function(e, f, g) {return f==null?
-
-        (g.length==0?e:(e+g.join(""))):(g.length==0?(e+f):(e+f+g.join("")));},
-        peg$c234 = function(a, b, c) {return b==null?(c==null?a.join(""):a.join
-
-        ("")+c):(c==null?a.join("")+b:a.join("")+b+c);},
+        peg$c233 = function(e, f, g) {return f==null?(g.length==0?e:(e+g.join(""))):(g.length==0?(e+f):(e+f+g.join("")));},
+        peg$c234 = function(a, b, c) {return b==null?(c==null?a.join(""):a.join("")+c):(c==null?a.join("")+b:a.join("")+b+c);},
         peg$c235 = "'",
         peg$c236 = { type: "literal", value: "'", description: "\"'\"" },
         peg$c237 = /^[^']/,
