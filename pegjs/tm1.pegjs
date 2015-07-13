@@ -5,7 +5,7 @@ return f!=null?{RULES_FILE:[{RULES:r},{FEEDERS:f}]}:{RULES_FILE:[{RULES:r}]};}
 rules=
     (skip p:pragma skip {return p} / skip r:ruleDef skip {return r} )* 
 
-skip = (eof/com)*
+skip = (eof/com)* {return "\n"}
 eof =  [\n\t\r ]/"<br/>"/"<br>"
 com = "#" [^\n]*
 
@@ -25,7 +25,7 @@ ruleDef=
 }
 
 ruleBody=
-    e:expr skip ";" skip {var x =[]; x.push(e);return x;} / levelExpr+
+    e:expr skip ";" {var x =[]; x.push(e);return x;} / levelExpr+
 
 levelExpr= skip l:level skip ":" skip e:expr skip ";" skip {var x = [];
 x.push({LEVEL_EXPR: l});x.push(e);return x;}
@@ -38,12 +38,12 @@ level=
 feederDef= skip a:areaDefn skip "=>" skip e:exprList skip ";" skip {return [a,e];}
 
 expr = skip e:expr7 skip {return e;}
-expr7= skip l:expr6 skip "%" skip r:expr7 skip {return {"%":[l,r]};} / expr6
-expr6= skip l:expr5 skip "&" skip r:expr6 skip {return {"&":[l,r]};} / expr5
-expr5= skip l:expr4 skip "=" skip r:expr4 skip {return {"=":[l,r]};} / skip l:expr4 skip "<>" skip r:expr4 skip {return {"<>":[l,r]};} / skip l:expr4 skip ">" skip r:expr4 skip {return {">":[l,r]};} / skip l:expr4 skip "<" skip r:expr4 skip {return {"<":[l,r]};} / skip l:expr4 skip "<=" skip r:expr4 skip {return {"<=":[l,r]};} / skip l:expr4 skip ">=" skip r:expr4 skip {return {">=":[l,r]};} / skip l:expr4 skip "@=" skip r:expr4 skip {return {"@=":[l,r]};} / skip l:expr4 skip "@<>" skip r:expr4 skip {return {"@<>":[l,r]};} / skip l:expr4 skip "@>" skip r:expr4 skip {return {"@>":[l,r]};} / skip l:expr4 skip "@<" skip r:expr4 skip {return {"@<":[l,r]};} / skip l:expr4 skip "@<=" skip r:expr4 skip {return {"@<=":[l,r]};} / skip l:expr4 skip "@>=" skip r:expr5 skip {return {"@>=":[l,r]};}/expr4
-expr4 = skip l:expr3 skip "+" skip r:expr4 skip {return {"+":[l,r]};}/ skip l:expr3 skip "-" skip r:expr4 skip {return {"-":[l,r]};} / skip l:expr3 skip "|" skip r:expr4 skip {return {"|":[l,r]};} /expr3 
-expr3 = skip l:expr2 skip "*" skip r:expr3 skip {return {"*":[l,r]};} / skip l:expr2 skip "/" skip r:expr3 skip {return {"/":[l,r]};} / skip l:expr2 skip "\\" skip r:expr3 skip {return {"\\":[l,r]};} /expr2
-expr2 = skip l:expr1 skip "^" skip r:expr2 skip {return {"^":[l,r]};}/ expr1
+expr7=  l:expr6 skip "%" skip r:expr7  {return {"%":[l,r]};} / expr6
+expr6=  l:expr5 skip "&" skip r:expr6  {return {"&":[l,r]};} / expr5
+expr5=  l:expr4 skip "=" skip r:expr4  {return {"=":[l,r]};} /  l:expr4 skip "<>" skip r:expr4  {return {"<>":[l,r]};} /  l:expr4 skip ">" skip r:expr4  {return {">":[l,r]};} /  l:expr4 skip "<" skip r:expr4  {return {"<":[l,r]};} /  l:expr4 skip "<=" skip r:expr4 {return {"<=":[l,r]};} /  l:expr4 skip ">=" skip r:expr4  {return {">=":[l,r]};} / l:expr4 skip "@=" skip r:expr4 {return {"@=":[l,r]};} / l:expr4 skip "@<>" skip r:expr4 {return {"@<>":[l,r]};} / l:expr4 skip "@>" skip r:expr4 {return {"@>":[l,r]};} / l:expr4 skip "@<" skip r:expr4 {return {"@<":[l,r]};} / l:expr4 skip "@<=" skip r:expr4  {return {"@<=":[l,r]};} / l:expr4 skip "@>=" skip r:expr5 {return {"@>=":[l,r]};}/expr4
+expr4 = l:expr3 skip "+" skip r:expr4 {return {"+":[l,r]};}/ l:expr3 skip "-" skip r:expr4 {return {"-":[l,r]};} / l:expr3 skip "|" skip r:expr4 {return {"|":[l,r]};} /expr3 
+expr3 = l:expr2 skip "*" skip r:expr3 {return {"*":[l,r]};} / l:expr2 skip "/" skip r:expr3 {return {"/":[l,r]};} / l:expr2 skip "\\" skip r:expr3 {return {"\\":[l,r]};} /expr2
+expr2 = l:expr1 skip "^" skip r:expr2 {return {"^":[l,r]};}/ expr1
 
 expr1 = skip "+" skip e:expr1 skip {return {"+":e};}/ skip "-" skip e:expr1 skip {return {"-":e};}/"~" e:expr1 {return {"~":e};}/ expr0
 expr0 =areaDefn /function /string/ kwContinue / kwStet / number / bang_identifier / "(" expr ")"

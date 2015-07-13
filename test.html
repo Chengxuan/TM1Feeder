@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Dummy sample</title>
+    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="base64.js"></script>
+    <script type="text/javascript" src="tmexp.js"></script>
+    <script type="text/javascript" src="./pegjs/tm1.js"></script>
+    <script type="text/javascript" src="./pegjs/tm1syntax.js"></script>
+</head>
+
+<body>
+<br/>
+<br/>
+<br/>
+
+<div style="text-align:center;">
+    <table width="100%">
+        <tr>
+            <td style="text-align:left;"><textarea rows="50" cols="100" id="txt_Content" >[{"Name":"X","Rules":"['A']=N:['B']*['C'];\n\nfeeders;\n\n['B']=>['A'];\n\n['C']=>['A'];"}]</textarea></td>
+        </tr>
+    </table>
+    <br/>
+    <button onclick="login();">Load</button>
+    <br/>
+    <br/>
+</div>
+<div id="div_result" style="text-align:center;">
+</div>
+<div id="div_result_null" style="text-align:center;"></div>
+</body>
+</html>

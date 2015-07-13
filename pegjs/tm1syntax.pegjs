@@ -5,8 +5,8 @@ rules=
     x:(a:skip p:pragma b:skip {return a+p+b} / a:skip r:ruleDef b:skip {return a+r+b} )*  {return x.join("");}
 
 skip = x:(eof/com)* {return x.join("");}
-eof =  x:[\n\t\r ]{return x;}/"<br/>"{return "<br/>";}/"<br>" {return "<br/>";}
-com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font>";}
+eof =  x:[\n\t\r ]{return "<br/>";}/"<br/>"{return "<br/>";}/"<br>" {return "<br/>";}
+com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font><br/>";}
 
 feeders= a:skip x:kwFeeders  +";"  c:skip f:feederDef* d:skip {return a+x+";"+c+f.join("")+d;}
 

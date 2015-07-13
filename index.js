@@ -24,17 +24,18 @@ function login() {
         var rdv = [];
         var fdv = [];
         var rnames = [];
+        var backuporigin = [];
         for (var i in data) {
             var rfs = data[i].Rules.toString().trim();
-            var backuporigin = tm1syntaxparser.parse(rfs);
+            backuporigin[i] = tm1syntaxparser.parse(rfs);
             rfs = removeComments(rfs);
 
-            rfs = rfs.replace(/;\n+/g, ";<br/><br/>").replace(/\s+/g, "");
+            rfs = rfs.replace(/;\n+/g, ";<br/><br/>").replace(/\s+/g, "").replace(/#/g,"<br/><br/>#");
 
             if (rfs.length > 0) {
                 var s = tm1parser.parse(rfs);
                 var jcontent = s.RULES_FILE;
-		rfs = tm1syntaxparser.parse(rfs);
+		        rfs = tm1syntaxparser.parse(rfs);
                 var scontent = rfs.split(";<br/><br/>").filter(Boolean);
                 for (var sc in scontent) {
                     scontent[sc] = scontent[sc].replace(/</g, "&lt").replace(/>/g, "&gt");
@@ -249,7 +250,13 @@ function login() {
                         }
                     }
                     if (!hasEmptyArray(brexp)) {
-                        atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
+                        if (brexp.length>0 && brexp[0]) {
+                            if(Array.isArray(brexp[0])){  atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
+                            }
+                        else{ atestfeeders += "<font color=\"red\">[" + brexp.join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
+                            }
+
+                        }
                     }
                     var srcj = document.createElement("td")
 
@@ -262,10 +269,9 @@ function login() {
                     }
                 }
 
-                if(fs.length>0){
 
-                    atest += "<tr><td>" + backuporigin + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
-                }
+                    atest += "<tr><td>" + backuporigin[i] + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
+
                 if (atest.length > 0) {
                     rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";
                     var cdiv = document.createElement('div');
