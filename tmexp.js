@@ -46,7 +46,13 @@ function excludeSame(a1, a2) {
     if (a1 && a2) {
         for (var i = 0; i < a2.length; i++) {
             if (a1.indexOf(a2[i]) != -1) {
-                a1.splice(a1.indexOf(a2[i]), 1);
+                if(Array.isArray(a1)){
+                    a1.splice(a1.indexOf(a2[i]), 1);
+                }else{
+                    a1 = [a1];
+                    a1.splice(a1.indexOf(a2[i]),1);
+                }
+
             }
         }
     }
@@ -86,7 +92,8 @@ function removeComments(origin) {
 function removeDuplicates(a) {
     var x = [];
     for (var i = 0; i < a.length; i++) {
-        if (x.indexOf(a[i]) == -1) {
+        var com = a[i].toString().split(":");
+        if (x.indexOf(a[i]) == -1 && com[0].trim().toLowerCase() != com[1].trim().toLowerCase()) {
             x.push(a[i]);
         }
     }

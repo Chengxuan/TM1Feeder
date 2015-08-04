@@ -17,7 +17,7 @@ function login() {
         backuporigin[i] = tm1syntaxparser.parse(rfs);
         rfs = removeComments(rfs);
 
-        rfs = rfs.replace(/;\n+/g, ";<br><br>").replace(/\s+/g, "").replace(/#/g,"<br><br>#");
+        rfs = rfs.replace(/;\n+/g, ";<br><br>").replace(/\s+/g, "").replace(/#/g, "<br><br>#");
 
         if (rfs.length > 0) {
             var s = tm1parser.parse(rfs);
@@ -96,7 +96,7 @@ function login() {
             for (var b = a == 0 ? 0 : rdv[a - 1]; b < rdv[a]; b++) {
                 var rea = trc[b].rarea;
                 var rex = trc[b].rexp;
-                var brex = rex.map(function(arr) {
+                var brex = rex.map(function (arr) {
                     return arr.slice();
                 });
                 for (var g in tfc) {
@@ -113,12 +113,13 @@ function login() {
                                     feederchk.push(g);
 
                                 } else {
+                                    var count = fex.length;
                                     if (excludeSame(fex, [rea[0]]).length == 0) {
                                         brex[eq] = excludeSame(brex[eq], fea);
                                         feederchk.push(g);
-                                    }else{
-
-                                        if (!hasIntersection(fex, [rea[0]])) {
+                                    } else {
+                                        var count = fex.length;
+                                        if (!hasIntersection(fex, [rea[0]]) && fex.length != rea.length - count) {
                                             brex[eq] = excludeSame(brex[eq], fea);
                                             feederchk.push(g);
                                         }
@@ -145,106 +146,163 @@ function login() {
                     var fexp = tfc[f].fexp;
 
                     if (farea.length > 0 && fexp.length > 0) {
-                        for (var ex in rexp) {
-                            if (hasEmptyArray(brexp)) {
-                                if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
-                                    if (fullyContains(fexp, rarea)) {
-                                        if (atestfeeders.indexOf(sfc[f]) == -1&&feederchk.indexOf(f)==-1) {
-                                            atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
-                                        }
-                                        feederchk.push(f);
-
-                                    } else {
-                                        var count = fexp.length;
-                                        if (excludeSame(fexp, [rarea[0]]).length == 0) {
-                                            if (atestfeeders.indexOf(sfc[f]) == -1&&feederchk.indexOf(f)==-1) {
-                                                atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
+                            for (var ex in rexp) {
+                                if (hasEmptyArray(brexp)) {
+                                    if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
+                                        if (fullyContains(fexp, rarea)) {
+                                            if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
+                                                atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
                                             }
-                                            brexp[ex] = excludeSame(brexp[ex], farea);
                                             feederchk.push(f);
-                                        }else{
-                                            count = count =fexp.length;
-                                            if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length-count) {
-                                                if (atestfeeders.indexOf(sfc[f]) == -1&&feederchk.indexOf(f)==-1) {
-                                                    atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
+
+                                        } else {
+
+                                            if (excludeSame(fexp, [rarea[0]]).length == 0) {
+                                                if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
+                                                    atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
                                                 }
                                                 brexp[ex] = excludeSame(brexp[ex], farea);
                                                 feederchk.push(f);
+                                            } else {
+                                                var count = fexp.length;
+                                                if (!hasIntersection(fexp, rarea[0]) && fexp.length != rarea.length - count) {
+                                                    if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
+                                                        atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                    }
+                                                    brexp[ex] = excludeSame(brexp[ex], farea);
+                                                    feederchk.push(f);
+                                                }
                                             }
                                         }
                                     }
+
+                                    continue;
                                 }
-
-                                continue;
-                            }
-                            if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
-                                if (fullyContains(fexp, rarea)) {
-                                    if (atestfeeders.indexOf(sfc[f]) == -1) {
-                                        if (f >= fdv[i]) {
-                                            var indtem = 0;
-                                            for(var ti=0;ti<fdv.length;ti++){
-                                                if(f<fdv[ti]){indtem=ti;break;}
-                                            }
-                                            atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
-                                        } else {
-                                            atestfeeders += sfc[f] + ";<br><br>";
-                                        }
-                                    }
-                                    brexp[ex] = excludeSame(brexp[ex], farea);
-                                    //feederchk.push(f);
-
-                                } else {
-                                    var count = fexp.length;
-                                    if (excludeSame(fexp, [rarea[0]]).length == 0) {
+                                if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
+                                    if (fullyContains(fexp, rarea)) {
                                         if (atestfeeders.indexOf(sfc[f]) == -1) {
                                             if (f >= fdv[i]) {
                                                 var indtem = 0;
-                                                for(var ti=0;ti<fdv.length;ti++){
-                                                    if(f<fdv[ti]){indtem=ti;break;}
+                                                for (var ti = 0; ti < fdv.length; ti++) {
+                                                    if (f < fdv[ti]) {
+                                                        indtem = ti;
+                                                        break;
+                                                    }
                                                 }
-                                                atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
+                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
                                             } else {
-                                                atestfeeders += sfc[f] + ";<br><br>";
+                                                if (i > 0) {
+                                                    if (f < fdv[i - 1]) {
+                                                        var indtem = 0;
+                                                        for (var ti = 0; ti < fdv.length; ti++) {
+                                                            if (f < fdv[ti]) {
+                                                                indtem = ti;
+                                                                break;
+                                                            }
+                                                        }
+                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                    } else {
+                                                        atestfeeders += sfc[f] + ";<br><br>";
+                                                    }
+                                                } else {
+                                                    atestfeeders += sfc[f] + ";<br><br>";
+                                                }
+
                                             }
                                         }
                                         brexp[ex] = excludeSame(brexp[ex], farea);
                                         //feederchk.push(f);
-                                    }else{
-                                        count = count =fexp.length;
-                                        if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length-count) {
+
+                                    } else {
+                                        var count = fexp.length;
+                                        if (excludeSame(fexp, [rarea[0]]).length == 0) {
                                             if (atestfeeders.indexOf(sfc[f]) == -1) {
                                                 if (f >= fdv[i]) {
                                                     var indtem = 0;
-                                                    for(var ti=0;ti<fdv.length;ti++){
-                                                        if(f<fdv[ti]){indtem=ti;break;}
+                                                    for (var ti = 0; ti < fdv.length; ti++) {
+                                                        if (f < fdv[ti]) {
+                                                            indtem = ti;
+                                                            break;
+                                                        }
                                                     }
-                                                    atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
+                                                    atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
                                                 } else {
-                                                    atestfeeders += sfc[f] + ";<br><br>";
+                                                    if (i > 0) {
+                                                        if (f < fdv[i - 1]) {
+                                                            var indtem = 0;
+                                                            for (var ti = 0; ti < fdv.length; ti++) {
+                                                                if (f < fdv[ti]) {
+                                                                    indtem = ti;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                        } else {
+                                                            atestfeeders += sfc[f] + ";<br><br>";
+                                                        }
+                                                    } else {
+                                                        atestfeeders += sfc[f] + ";<br><br>";
+                                                    }
                                                 }
                                             }
                                             brexp[ex] = excludeSame(brexp[ex], farea);
-                                            // feederchk.push(f);
+                                            //feederchk.push(f);
+                                        } else {
+                                            count = count = fexp.length;
+                                            if (!hasIntersection(fexp, rarea[0]) && fexp.length != rarea.length - count) {
+                                                if (atestfeeders.indexOf(sfc[f]) == -1) {
+                                                    if (f >= fdv[i]) {
+                                                        var indtem = 0;
+                                                        for (var ti = 0; ti < fdv.length; ti++) {
+                                                            if (f < fdv[ti]) {
+                                                                indtem = ti;
+                                                                break;
+                                                            }
+                                                        }
+                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                    } else {
+                                                        if (i > 0) {
+                                                            if (f < fdv[i - 1]) {
+                                                                var indtem = 0;
+                                                                for (var ti = 0; ti < fdv.length; ti++) {
+                                                                    if (f < fdv[ti]) {
+                                                                        indtem = ti;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                            } else {
+                                                                atestfeeders += sfc[f] + ";<br><br>";
+                                                            }
+                                                        } else {
+                                                            atestfeeders += sfc[f] + ";<br><br>";
+                                                        }
+                                                    }
+                                                }
+                                                brexp[ex] = excludeSame(brexp[ex], farea);
+                                                // feederchk.push(f);
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
 
                     }
                 }
                 if (!hasEmptyArray(brexp)) {
-                    if (brexp.length>0 && brexp[0]) {
-                        if(Array.isArray(brexp[0])){  atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",").replace(/<([^>]+)>/g,"")  + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g,"")  + "];</font><br>";
+                    if (brexp.length > 0 && brexp[0]) {
+                        if (Array.isArray(brexp[0])) {
+                            atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",").replace(/<([^>]+)>/g, "") + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g, "") + "];</font><br>";
                         }
-                        else{ atestfeeders += "<font color=\"red\">[" + brexp.join(",").replace(/<([^>]+)>/g,"")  + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g,"")  + "];</font><br>";
+                        else {
+                            atestfeeders += "<font color=\"red\">[" + brexp.join(",").replace(/<([^>]+)>/g, "") + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g, "") + "];</font><br>";
                         }
 
                     }
                 }
                 var srcj = document.createElement("td")
 
-                atest += "<tr><td>" + src[j] + "</td><td>" + atestfeeders + "</td></tr>";
+                atest += "<tr><td style=\"word-wrap: break-word\">" + src[j] + "</td><td style=\"word-wrap: break-word\">" + atestfeeders + "</td></tr>";
             }
 
             for (var y = i == 0 ? 0 : fdv[i - 1]; y < fdv[i]; y++) {
@@ -253,26 +311,30 @@ function login() {
                 }
             }
 
+            if (fs.trim().length > 0) {
+                atest += "<tr><td style=\"word-wrap: break-word\">" + "Redundant Feeders:" + "</td><td style=\"color:grey;word-wrap: break-word\">" + fs.replace(/<([^>]+)>/g, "") + "</td></tr>";
+            }
 
-            atest += "<tr><td>" + backuporigin[i] + "</td><td style=\"color:grey;\">" + fs.replace(/<([^>]+)>/g,"")  + "</td></tr>";
+            atest += "<tr><td colspan=\"2\" style=\"word-wrap: break-word\">" + backuporigin[i] + "</td></tr>";
 
             if (atest.length > 0) {
                 rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br>";
                 var cdiv = document.createElement('div');
                 cdiv.setAttribute("id", "div_" + rnames[i]);
-                cdiv.setAttribute("style", "display:none;text-align:center;");
+                cdiv.setAttribute("style", "display:none;text-align:left;");
                 var ctable = document.createElement('table');
+                ctable.setAttribute("style", "table-layout: fixed; width: 100%");
                 ctable.setAttribute("border", "1");
                 var cth = document.createElement('thead');
                 cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th>";
                 var ctb = document.createElement('tbody');
-                ctb.setAttribute("style", "text-align:center;");
+                ctb.setAttribute("style", "text-align:left;");
                 ctb.innerHTML = atest;
                 ctable.appendChild(cth);
                 ctable.appendChild(ctb);
                 cdiv.appendChild(ctable);
                 rdiv.appendChild(cdiv);
-            }else{
+            } else {
                 document.getElementById('div_result_null').innerHTML += rnames[i] + "<br>";
             }
         }
