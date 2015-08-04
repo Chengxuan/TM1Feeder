@@ -17,16 +17,13 @@ function login() {
         backuporigin[i] = tm1syntaxparser.parse(rfs);
         rfs = removeComments(rfs);
 
-        rfs = rfs.replace(/;\n+/g, ";<br/><br/>").replace(/\s+/g, "").replace(/#/g,"<br/><br/>#");
+        rfs = rfs.replace(/;\n+/g, ";<br><br>").replace(/\s+/g, "").replace(/#/g,"<br><br>#");
 
         if (rfs.length > 0) {
             var s = tm1parser.parse(rfs);
             var jcontent = s.RULES_FILE;
             rfs = tm1syntaxparser.parse(rfs);
-            var scontent = rfs.split(";<br/><br/>").filter(Boolean);
-            for (var sc in scontent) {
-                scontent[sc] = scontent[sc].replace(/</g, "&lt").replace(/>/g, "&gt");
-            }
+            var scontent = rfs.trim().split(";<br><br>");
             if (jcontent.length == 2) {
                 var jrules = jcontent[0].RULES;
                 var jfeeders = jcontent[1].FEEDERS;
@@ -34,8 +31,8 @@ function login() {
                 var srules = scontent.splice(0, jrules.length);
                 var sfeeders = scontent.splice(1);
                 if (jfeeders.length == sfeeders.length && jrules.length == srules.length) {
-                    //rs = srules.join(";<br/><br/>");
-                    //fs = sfeeders.join(";<br/><br/>");
+                    //rs = srules.join(";<br><br>");
+                    //fs = sfeeders.join(";<br><br>");
                     for (var x in jrules) {
 
                         for (var y in jrules[x]) {
@@ -81,7 +78,7 @@ function login() {
             }
             //} else {
             //    var jrules = jcontent[0].RULES;
-            //    rs = scontent.join(";<br/><br/>");
+            //    rs = scontent.join(";<br><br>");
             //}
             /*var dim = data[i].Dimensions;
              for (var d in dim) {
@@ -89,7 +86,7 @@ function login() {
              }*/
 
         } else {
-            document.getElementById('div_result_null').innerHTML += data[i].Name + "<br/>";
+            document.getElementById('div_result_null').innerHTML += data[i].Name + "<br>";
         }
     }
     if (rdv.length > 0) {
@@ -153,7 +150,7 @@ function login() {
                                 if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
                                     if (fullyContains(fexp, rarea)) {
                                         if (atestfeeders.indexOf(sfc[f]) == -1) {
-                                            atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                            atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"") + "</font><br><br>";
                                         }
                                         feederchk.push(f);
 
@@ -161,7 +158,7 @@ function login() {
                                         var count = fexp.length;
                                         if (excludeSame(fexp, [rarea[0]]).length == 0) {
                                             if (atestfeeders.indexOf(sfc[f]) == -1) {
-                                                atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                                atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
                                             }
                                             brexp[ex] = excludeSame(brexp[ex], farea);
                                             feederchk.push(f);
@@ -169,7 +166,7 @@ function login() {
                                             count = count =fexp.length;
                                             if (!hasIntersection(fexp, rarea[0])&&fexp.length!=rarea.length-count) {
                                                 if (atestfeeders.indexOf(sfc[f]) == -1) {
-                                                    atestfeeders += "<font color=\"grey\">" + sfc[f] + ";</font><br/><br/>";
+                                                    atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
                                                 }
                                                 brexp[ex] = excludeSame(brexp[ex], farea);
                                                 feederchk.push(f);
@@ -188,9 +185,9 @@ function login() {
                                             for(var ti=0;ti<fdv.length;ti++){
                                                 if(f<fdv[ti]){indtem=ti;break;}
                                             }
-                                            atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
+                                            atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"") +":"+sfc[f].replace(/<([^>]+)>/g,"") + "</font><br><br>";
                                         } else {
-                                            atestfeeders += sfc[f] + ";<br/><br/>";
+                                            atestfeeders += sfc[f] + ";<br><br>";
                                         }
                                     }
                                     brexp[ex] = excludeSame(brexp[ex], farea);
@@ -205,9 +202,9 @@ function login() {
                                                 for(var ti=0;ti<fdv.length;ti++){
                                                     if(f<fdv[ti]){indtem=ti;break;}
                                                 }
-                                                atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
+                                                atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"") +":"+sfc[f].replace(/<([^>]+)>/g,"") + "</font><br><br>";
                                             } else {
-                                                atestfeeders += sfc[f] + ";<br/><br/>";
+                                                atestfeeders += sfc[f] + ";<br><br>";
                                             }
                                         }
                                         brexp[ex] = excludeSame(brexp[ex], farea);
@@ -221,9 +218,9 @@ function login() {
                                                     for(var ti=0;ti<fdv.length;ti++){
                                                         if(f<fdv[ti]){indtem=ti;break;}
                                                     }
-                                                    atestfeeders += "<font color=\"blue\">"+ rnames[indtem] +":"+sfc[f] + ";</font><br/><br/>";
+                                                    atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"") +":"+sfc[f].replace(/<([^>]+)>/g,"") + "</font><br><br>";
                                                 } else {
-                                                    atestfeeders += sfc[f] + ";<br/><br/>";
+                                                    atestfeeders += sfc[f] + ";<br><br>";
                                                 }
                                             }
                                             brexp[ex] = excludeSame(brexp[ex], farea);
@@ -238,29 +235,28 @@ function login() {
                 }
                 if (!hasEmptyArray(brexp)) {
                     if (brexp.length>0 && brexp[0]) {
-                        if(Array.isArray(brexp[0])){  atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
+                        if(Array.isArray(brexp[0])){  atestfeeders += "<font color=\"red\">[" + getLeast(brexp).join(",").replace(/<([^>]+)>/g,"") + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g,"") + "];</font><br>";
                         }
-                        else{ atestfeeders += "<font color=\"red\">[" + brexp.join(",") + "]=>[" + rarea.join(",") + "];</font><br/>";
+                        else{ atestfeeders += "<font color=\"red\">[" + brexp.join(",").replace(/<([^>]+)>/g,"") + "]=>[" + rarea.join(",").replace(/<([^>]+)>/g,"") + "];</font><br>";
                         }
 
                     }
                 }
-                var srcj = document.createElement("td")
 
-                atest += "<tr><td>" + src[j] + "</td><td>" + atestfeeders + "</td></tr>";
+                atest += "<tr><td><pre>" + src[j] + "</pre></td><td><pre>" + atestfeeders + "</pre></td></tr>";
             }
 
             for (var y = i == 0 ? 0 : fdv[i - 1]; y < fdv[i]; y++) {
                 if (feederchk.indexOf(y.toString()) == -1) {
-                    fs += sfc[y] + ";<br/><br/>";
+                    fs += sfc[y] + ";<br><br>";
                 }
             }
 
 
-            atest += "<tr><td>" + backuporigin[i] + "</td><td style=\"color:grey;\">" + fs + "</td></tr>";
+            atest += "<tr><td><pre>" + backuporigin[i] + "</pre></td><td style=\"color:grey;\"><pre>" + fs.replace(/<([^>]+)>/g,"") + "<pre></td></tr>";
 
             if (atest.length > 0) {
-                rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br/>";
+                rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br>";
                 var cdiv = document.createElement('div');
                 cdiv.setAttribute("id", "div_" + rnames[i]);
                 cdiv.setAttribute("style", "display:none;text-align:center;");
@@ -276,7 +272,7 @@ function login() {
                 cdiv.appendChild(ctable);
                 rdiv.appendChild(cdiv);
             }else{
-                document.getElementById('div_result_null').innerHTML += rnames[i] + "<br/>";
+                document.getElementById('div_result_null').innerHTML += rnames[i] + "<br>";
             }
         }
 

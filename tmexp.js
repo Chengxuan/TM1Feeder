@@ -109,6 +109,7 @@ var digstrings = function myself(abstree, cube) {
             for (var j = 0; j < ps.length; j++) {
                 var nm = ps[j];
                 var v = abstree[nm];
+
                 if (nm.toString().toUpperCase() == "AREA_ITEMS" && v.AREA_ITEM_SET) {
                     tmp = mergeArray(tmp, myself(v.AREA_ITEM_SET, cube));
                 }

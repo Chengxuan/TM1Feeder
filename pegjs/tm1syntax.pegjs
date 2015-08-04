@@ -5,8 +5,8 @@ rules=
     x:(a:skip p:pragma b:skip {return a+p+b} / a:skip r:ruleDef b:skip {return a+r+b} )*  {return x.join("");}
 
 skip = x:(eof/com)* {return x.join("");}
-eof =  x:[\n\t\r ]{return "<br/>";}/"<br/>"{return "<br/>";}/"<br>" {return "<br/>";}
-com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font><br/>";}
+eof =  x:[\t\r ]{return " ";}/[\n] {return "<br>";}/"<br/>"{return "<br>";}/"<br>" {return "<br>";}
+com = "#" x:[^\n]* {return "<font color='green'>#"+x.join("").replace(/</g,"&#60;").replace(/>/g,"&#62;") + "</font><br>";}
 
 feeders= a:skip x:kwFeeders  +";"  c:skip f:feederDef* d:skip {return a+x+";"+c+f.join("")+d;}
 
@@ -30,12 +30,12 @@ level=
     /([S]/[s]){return "<b>S</b>";}
     /([C]/[c]){return "<b>C</b>";}
 
-feederDef= b:skip a:areaDefn c:skip "=>" d:skip e:exprList f:skip ";" g:skip {return b+a+c+"=>"+d+e+f+";"+g;}
+feederDef= b:skip a:areaDefn c:skip "=>" d:skip e:exprList f:skip ";" g:skip {return b+a+c+"= &gt "+d+e+f+";"+g;}
 
 expr = a:skip e:expr7 b:skip {return a+e+b;}
 expr7= l:expr6 a:skip "%" b:skip r:expr7 {return l+a+"%"+b+r;} / expr6
 expr6= l:expr5 a:skip "&" b:skip r:expr6 {return l+a+"&"+b+r;} / expr5
-expr5= l:expr4 a:skip "=" b:skip r:expr4 {return l+a+"="+b+r;} / l:expr4 a:skip "<>" b:skip r:expr4 {return l+a+"<>"+b+r;} / l:expr4 a:skip ">" b:skip r:expr4 {return l+a+">"+b+r;} / l:expr4 a:skip "<" b:skip r:expr4 {return l+a+"<"+b+r;} / l:expr4 a:skip "<=" b:skip r:expr4 {return l+a+"<="+b+r;} / l:expr4 a:skip ">=" b:skip r:expr4 {return l+a+">="+b+r;} / l:expr4 a:skip "@=" b:skip r:expr4 {return l+a+"@="+b+r;} / l:expr4 a:skip "@<>" b:skip r:expr4 {return l+a+"@<>"+b+r;} / l:expr4 a:skip "@>" b:skip r:expr4 {return l+a+"@>"+b+r;} / l:expr4 a:skip "@<" b:skip r:expr4 {return l+a+"@<"+b+r;} / l:expr4 a:skip "@<=" b:skip r:expr4 {return l+a+"@<="+b+r;} / l:expr4 a:skip "@>=" b:skip r:expr5 {return l+a+"@>="+b+r;}/expr4
+expr5= l:expr4 a:skip "=" b:skip r:expr4 {return l+a+"="+b+r;} / l:expr4 a:skip "<>" b:skip r:expr4 {return l+a+"&lt &gt "+b+r;} / l:expr4 a:skip ">" b:skip r:expr4 {return l+a+"&gt "+b+r;} / l:expr4 a:skip "<" b:skip r:expr4 {return l+a+"&lt "+b+r;} / l:expr4 a:skip "<=" b:skip r:expr4 {return l+a+"&lt ="+b+r;} / l:expr4 a:skip ">=" b:skip r:expr4 {return l+a+"&gt ="+b+r;} / l:expr4 a:skip "@=" b:skip r:expr4 {return l+a+"@="+b+r;} / l:expr4 a:skip "@<>" b:skip r:expr4 {return l+a+"@ &lt &gt" +b+r;} / l:expr4 a:skip "@>" b:skip r:expr4 {return l+a+"@ &gt "+b+r;} / l:expr4 a:skip "@<" b:skip r:expr4 {return l+a+"@ &lt "+b+r;} / l:expr4 a:skip "@<=" b:skip r:expr4 {return l+a+"@ &lt ="+b+r;} / l:expr4 a:skip "@>=" b:skip r:expr5 {return l+a+"@ &gt ="+b+r;}/expr4
 expr4 = l:expr3 a:skip "+" b:skip r:expr4 {return l+a+"+"+b+r;}/ l:expr3 a:skip "-" b:skip r:expr4 {return l+a+"-"+b+r;} / l:expr3 a:skip "|" b:skip r:expr4 {return l+a+"|"+b+r;} /expr3 
 expr3 = l:expr2 a:skip "*" b:skip r:expr3 {return l+a+"*"+b+r;} / l:expr2 a:skip "/" b:skip r:expr3 {return l+a+"/"+b+r;} / l:expr2 a:skip "\\" b:skip r:expr3 {return l+a+"\\"+b+r;} /expr2
 expr2 = l:expr1 a:skip "^" b:skip r:expr2 {return l+a+"^"+b+r;}/ expr1
@@ -92,7 +92,7 @@ kwFeedstrings = T_FEEDSTRINGS {return "FEEDSTRINGS";}
 identifier = t:T_IDENTIFIER {return "<font color='blue'><strong>" +t + "</strong></font>";}
 bang_identifier= t:T_BANG_IDENTIFIER {return "<font color='grey'><i>" +t + "</i></font>";}
 number = t:T_NUMBER {return t;}
-string = t:T_STRING {return "<i>" +t + "</i>";}
+string = t:T_STRING {return "<font color='orange'><i>" +t + "</i></font>";}
 
 T_CONTINUE = ([C]/[c])([O]/[o])([N]/[n])([T]/[t])([I]/[i])([N]/[n])([U]/[u])([E]/[e])
 T_STET= ([S]/[s])([T]/[t])([E]/[e])([T]/[t])
