@@ -212,10 +212,10 @@ function login() {
                                                         }
                                                         atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
                                                     }else{
-                                                        atestfeeders += sfc[f] + ";<br><br>";
+                                                        atestfeeders += sfc[f] + "<br><br>";
                                                     }
                                                 }else{
-                                                    atestfeeders += sfc[f] + ";<br><br>";
+                                                    atestfeeders += sfc[f] + "<br><br>";
                                                 }
 
                                             }
@@ -242,10 +242,10 @@ function login() {
                                                             }
                                                             atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
                                                         }else{
-                                                            atestfeeders += sfc[f] + ";<br><br>";
+                                                            atestfeeders += sfc[f] + "<br><br>";
                                                         }
                                                     }else{
-                                                        atestfeeders += sfc[f] + ";<br><br>";
+                                                        atestfeeders += sfc[f] + "<br><br>";
                                                     }
                                                 }
                                             }
@@ -270,10 +270,10 @@ function login() {
                                                                 }
                                                                 atestfeeders += "<font color=\"blue\">"+ rnames[indtem].replace(/<([^>]+)>/g,"")  +":"+sfc[f].replace(/<([^>]+)>/g,"")  + "</font><br><br>";
                                                             }else{
-                                                                atestfeeders += sfc[f] + ";<br><br>";
+                                                                atestfeeders += sfc[f] + "<br><br>";
                                                             }
                                                         }else{
-                                                            atestfeeders += sfc[f] + ";<br><br>";
+                                                            atestfeeders += sfc[f] + "<br><br>";
                                                         }
                                                     }
                                                 }
@@ -303,7 +303,7 @@ function login() {
 
                 for (var y = i == 0 ? 0 : fdv[i - 1]; y < fdv[i]; y++) {
                     if (feederchk.indexOf(y.toString()) == -1) {
-                        fs += sfc[y] + ";<br><br>";
+                        fs += sfc[y] + "<br><br>";
                     }
                 }
 
