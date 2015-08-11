@@ -353,7 +353,7 @@ function changeV(x){
             document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']+['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
             break;
         case 2:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n['C']=>['A'];\\n['D']=>['A'];\"}]";
             break;
         case 3:
             document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n['C']=>DB('Y',!B,!C,'I');\\n\"},{\"Name\":\"Y\",\"Rules\":\"['I']=N:DB('Y','V',!C)+DB('X',!V,'C');\\n\\nfeeders;\\n\\n['V']=>['I'];\\n\\n\"}]";
