@@ -18,10 +18,15 @@
     <table style="table-layout: fixed; width: 100%">
         <tr>
             <td style="text-align:left;">
-                <textarea rows="10" cols="55" id="txt_Content">[{"Name":"X","Rules":"['A']=N:['B']*['C'];\n\nfeeders;\n\n['B']=>['A'];\n\n['C']=>['A'];"}]</textarea>
+                <textarea rows="10" cols="55" id="txt_Content">[{"Name":"X","Rules":"['A']=N:['B']*['C'];\n\nfeeders;\n\n['B']=>['A'];\n"}]</textarea>
             </td>
             <td>
-                <button onclick="changeV('A');">A</button>
+                <select id="sl_examples"onchange="changeV(this.selectedIndex)">
+                    <option value="uf">Correct</option>
+                    <option value="uf">Underfeeding</option>
+                    <option value="ov">Overfeeding</option>
+                    <option value="cc">Crossing Cube</option>
+                </select>
             </td>
         </tr>
     </table>

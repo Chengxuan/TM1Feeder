@@ -344,9 +344,22 @@ function login() {
 }
 
 function changeV(x){
-    if(x.toString()=="A"){
-
-        document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\\n['C']=>DB('Y',!F,'A');\"},{\"Name\":\"Y\",\"Rules\":\"['A']=N:['B']*DB('X',!D,'C');\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\\n['C']=>['A'];\"}]";
+    document.getElementById("txt_Content").value = "";
+    switch (x) {
+        case 0:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            break;
+        case 1:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']+['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            break;
+        case 2:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            break;
+        case 3:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n['C']=>DB('Y',!B,!C,'I');\\n\"},{\"Name\":\"Y\",\"Rules\":\"['I']=N:DB('Y','V',!C)+DB('X',!V,'C');\\n\\nfeeders;\\n\\n['V']=>['I'];\\n\\n\"}]";
+            break;
+        default:
+            break;
     }
 
 }
