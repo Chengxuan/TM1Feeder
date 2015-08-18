@@ -46,11 +46,11 @@ function excludeSame(a1, a2) {
     if (a1 && a2) {
         for (var i = 0; i < a2.length; i++) {
             if (a1.indexOf(a2[i]) != -1) {
-                if(Array.isArray(a1)){
+                if (Array.isArray(a1)) {
                     a1.splice(a1.indexOf(a2[i]), 1);
-                }else{
+                } else {
                     a1 = [a1];
-                    a1.splice(a1.indexOf(a2[i]),1);
+                    a1.splice(a1.indexOf(a2[i]), 1);
                 }
 
             }
@@ -188,50 +188,51 @@ var digstrings = function myself(abstree, cube) {
                             case "ATTRN":
                                 break;
                             case "IF":
-                                if(myself(v[1].EXPR_LIST[0],cube).length>0){
-                                var exprs = Object.keys(v[1].EXPR_LIST[0]);
+                                if (myself(v[1].EXPR_LIST[0], cube).length > 0) {
+                                    var exprs = Object.keys(v[1].EXPR_LIST[0]);
                                     var ttmp = [];
                                     var tttmp = [];
-                                if (exprs.indexOf("=")!=-1||exprs.indexOf(">=")!=-1||exprs.indexOf("<=")!=-1||exprs.indexOf("<>")!=-1) {
-                                    ttmp = myself(v[1].EXPR_LIST[0], cube);
-                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[1], cube));
-                                    tttmp = myself(v[1].EXPR_LIST[1], cube);
-                                    tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    if(ttmp.length>0){
-                                        if(tttmp.length>0){
-                                            tmp = mergeArray(tmp, ttmp);
-                                            tmp = mergeArray(tmp, tttmp);
-                                        }else{
-                                            tmp = ttmp;
-                                        }
+                                    if (exprs.indexOf("=") != -1 || exprs.indexOf(">=") != -1 || exprs.indexOf("<=") != -1) {
+                                        ttmp = myself(v[1].EXPR_LIST[0], cube);
+                                        ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[1], cube));
+                                        tttmp = myself(v[1].EXPR_LIST[1], cube);
+                                        tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
+                                        if (ttmp.length > 0) {
+                                            if (tttmp.length > 0) {
+                                                tmp = mergeArray(tmp, ttmp);
+                                                tmp = mergeArray(tmp, tttmp);
+                                            } else {
+                                                tmp = ttmp;
+                                            }
 
-                                    }else{
-                                        if(tttmp.length>0){
-                                            tmp = tttmp;
+                                        } else {
+                                            if (tttmp.length > 0) {
+                                                tmp = tttmp;
+                                            }
                                         }
+                                        break;
                                     }
-                                    break;
+                                    if (exprs.indexOf(">") != -1 || exprs.indexOf("<") != -1 || exprs.indexOf("<>") != -1) {
+                                        ttmp = myself(v[1].EXPR_LIST[0], cube);
+                                        ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[2], cube));
+                                        tttmp = myself(v[1].EXPR_LIST[1], cube);
+                                        tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
+                                        if (ttmp.length > 0) {
+                                            if (tttmp.length > 0) {
+                                                tmp = mergeArray(tmp, ttmp);
+                                                tmp = mergeArray(tmp, tttmp);
+                                            } else {
+                                                tmp = ttmp;
+                                            }
+
+                                        } else {
+                                            if (tttmp.length > 0) {
+                                                tmp = tttmp;
+                                            }
+                                        }
+                                        break;
+                                    }
                                 }
-                                if (exprs.indexOf(">")!=-1||exprs.indexOf("<")!=-1) {
-                                    ttmp =  myself(v[1].EXPR_LIST[0], cube);
-                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    tttmp =  myself(v[1].EXPR_LIST[1], cube);
-                                    tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    if(ttmp.length>0){
-                                        if(tttmp.length>0){
-                                            tmp = mergeArray(tmp, ttmp);
-                                            tmp = mergeArray(tmp, tttmp);
-                                        }else{
-                                            tmp = ttmp;
-                                        }
-
-                                    }else{
-                                        if(tttmp.length>0){
-                                            tmp =tttmp;
-                                        }
-                                    }
-                                    break;
-                                }}
                                 tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[1], cube));
                                 tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[2], cube));
 
