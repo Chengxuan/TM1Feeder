@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99e8e6f1-92d0-4006-8839-9578952177b6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util.js" afterPath="$PROJECT_DIR$/util.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TM1Feeder.iws" />
@@ -325,7 +324,13 @@
       <option name="project" value="LOCAL" />
       <updated>1440101575658</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="streamline util.js&#10;Eliminating functions for cookies.">
+      <created>1440101768363</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1440101768363</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -367,7 +372,8 @@
     <MESSAGE value="update test" />
     <MESSAGE value="update if unequals" />
     <MESSAGE value="streamline util.js&#10;Deleted post put and delete funtions which are not used in this project." />
-    <option name="LAST_COMMIT_MESSAGE" value="streamline util.js&#10;Deleted post put and delete funtions which are not used in this project." />
+    <MESSAGE value="streamline util.js&#10;Eliminating functions for cookies." />
+    <option name="LAST_COMMIT_MESSAGE" value="streamline util.js&#10;Eliminating functions for cookies." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
