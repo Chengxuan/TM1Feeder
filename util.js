@@ -37,22 +37,6 @@ function parseJson(str) {
     return window.JSON ? JSON.parse(str) : eval('(' + str + ')');
 }
 
-function objectToQuery(map) {
-    var enc = encodeURIComponent, pairs = [];
-    for (var name in map) {
-        var value = map[name];
-        var assign = enc(name) + "=";
-        if (value && (value instanceof Array || typeof value == 'array')) {
-            for (var i = 0, len = value.length; i < len; ++i) {
-                pairs.push(assign + enc(value[i]));
-            }
-        } else {
-            pairs.push(assign + enc(value));
-        }
-    }
-    return pairs.join("&");
-}
-
 function collapse(elementId) {
     var ele = document.getElementById(elementId);
     if (ele.style.display == "block") {
