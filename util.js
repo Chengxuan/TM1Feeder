@@ -32,62 +32,6 @@ function xhrGet(url, callback, errback, username, password) {
     xhr.ontimeout = errback;
     xhr.send();
 }
-function xhrPut(url, data, callback, errback, username, password) {
-    var xhr = new createXHR();
-    xhr.open("PUT", url, true);
-    xhr.setRequestHeader("Authorization", "Basic " + base64.encode(username + ":" + username));
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                callback(xhr.responseText);
-            }
-            else {
-                errback('Service not available, error code:' + xhr.status.toString());
-            }
-        }
-    };
-    xhr.timeout = 3000;
-    xhr.ontimeout = errback;
-    xhr.send(objectToQuery(data));
-}
-function xhrPost(url, data, callback, errback, username, password) {
-    var xhr = new createXHR();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Authorization", "Basic " + base64.encode(username + ":" + password));
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                callback();
-            }
-            else {
-                errback('Service not available, error code:' + xhr.status.toString());
-            }
-        }
-    };
-    xhr.timeout = 3000;
-    xhr.ontimeout = errback;
-    xhr.send(objectToQuery(data));
-}
-function xhrDelete(url, callback, errback, username, password) {
-    var xhr = new createXHR();
-    xhr.open("DELETE", url, true);
-    xhr.setRequestHeader("Authorization", "Basic " + base64.encode(username + ":" + password));
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                callback();
-            }
-            else {
-                errback('Service not available, error code:' + xhr.status.toString());
-            }
-        }
-    };
-    xhr.timeout = 3000;
-    xhr.ontimeout = errback;
-    xhr.send();
-}
 
 function parseJson(str) {
     return window.JSON ? JSON.parse(str) : eval('(' + str + ')');
