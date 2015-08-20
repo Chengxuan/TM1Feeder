@@ -26,7 +26,6 @@ function xhrGet(url, callback, errback, username, password) {
                 errback('Service not available, error code:' + xhr.status.toString());
             }
         }
-
     };
     xhr.timeout = 3000;
     xhr.ontimeout = errback;
