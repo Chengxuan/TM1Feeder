@@ -93,9 +93,10 @@ function removeDuplicates(a) {
     var x = [];
     for (var i = 0; i < a.length; i++) {
         var com = a[i].toString().split(":");
+        if(com.length=2){
         if (x.indexOf(a[i]) == -1 && com[0].trim().toLowerCase() != com[1].trim().toLowerCase()) {
             x.push(a[i]);
-        }
+        }}
     }
     return x;
 }
