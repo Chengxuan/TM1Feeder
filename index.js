@@ -101,8 +101,6 @@ function login() {
                  ds += dim[d].Name + '<br>';
                  }*/
 
-            } else {
-                document.getElementById('div_result_null').innerHTML += data[i].Name + "<br>";
             }
         }
         if (rdv.length > 0) {
@@ -314,12 +312,12 @@ function login() {
                 atest += "<tr><td colspan=\"2\" style=\"word-wrap: break-word\">" + backuporigin[i] + "</td></tr>";
 
                 if (atest.length > 0) {
-                    rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br>";
+                    rdiv.innerHTML += "<font size=\"6\">"+rnames[i]+"</font><a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Hide</a><br>";
                     var cdiv = document.createElement('div');
                     cdiv.setAttribute("id", "div_" + rnames[i]);
-                    cdiv.setAttribute("style", "display:none;text-align:left;");
+                    cdiv.setAttribute("style", "display:block;text-align: center;");
                     var ctable = document.createElement('table');
-                    ctable.setAttribute("style","table-layout: fixed; width: 100%");
+                    ctable.setAttribute("style","table-layout: fixed; width: 80%; margin: 0 auto;");
                     ctable.setAttribute("border", "1");
                     var cth = document.createElement('thead');
                     cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th>";
@@ -330,8 +328,6 @@ function login() {
                     ctable.appendChild(ctb);
                     cdiv.appendChild(ctable);
                     rdiv.appendChild(cdiv);
-                }else{
-                    document.getElementById('div_result_null').innerHTML += rnames[i] + "<br>";
                 }
             }
         }

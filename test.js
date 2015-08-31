@@ -85,8 +85,6 @@ function login() {
              ds += dim[d].Name + '<br/>';
              }*/
 
-        } else {
-            document.getElementById('div_result_null').innerHTML += data[i].Name + "<br>";
         }
     }
     if (rdv.length > 0) {
@@ -151,7 +149,7 @@ function login() {
                                     if (fullyContains(fexp, [rarea[0]]) && hasIntersection(rexp[ex], farea)) {//(pc(fexp,rarea)||pc(rarea,fexp))){
                                         if (fullyContains(fexp, rarea)) {
                                             if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
-                                                atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                             }
                                             feederchk.push(f);
 
@@ -159,7 +157,7 @@ function login() {
 
                                             if (excludeSame(fexp, [rarea[0]]).length == 0) {
                                                 if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
-                                                    atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                    atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                 }
                                                 brexp[ex] = excludeSame(brexp[ex], farea);
                                                 feederchk.push(f);
@@ -167,7 +165,7 @@ function login() {
                                                 var count = fexp.length;
                                                 if (!hasIntersection(fexp, rarea[0]) && fexp.length != rarea.length - count) {
                                                     if (atestfeeders.indexOf(sfc[f]) == -1 && feederchk.indexOf(f) == -1) {
-                                                        atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                        atestfeeders += "<font color=\"grey\">" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                     }
                                                     brexp[ex] = excludeSame(brexp[ex], farea);
                                                     feederchk.push(f);
@@ -189,7 +187,7 @@ function login() {
                                                         break;
                                                     }
                                                 }
-                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                             } else {
                                                 if (i > 0) {
                                                     if (f < fdv[i - 1]) {
@@ -200,7 +198,7 @@ function login() {
                                                                 break;
                                                             }
                                                         }
-                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                     } else {
                                                         atestfeeders += sfc[f] + "<br><br>";
                                                     }
@@ -225,7 +223,7 @@ function login() {
                                                             break;
                                                         }
                                                     }
-                                                    atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                    atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                 } else {
                                                     if (i > 0) {
                                                         if (f < fdv[i - 1]) {
@@ -236,12 +234,12 @@ function login() {
                                                                     break;
                                                                 }
                                                             }
-                                                            atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                            atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                         } else {
-                                                            atestfeeders += sfc[f] + "<br><br>";
+                                                            atestfeeders += sfc[f] + ";<br><br>";
                                                         }
                                                     } else {
-                                                        atestfeeders += sfc[f] + "<br><br>";
+                                                        atestfeeders += sfc[f] + ";<br><br>";
                                                     }
                                                 }
                                             }
@@ -259,7 +257,7 @@ function login() {
                                                                 break;
                                                             }
                                                         }
-                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                        atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                     } else {
                                                         if (i > 0) {
                                                             if (f < fdv[i - 1]) {
@@ -270,7 +268,7 @@ function login() {
                                                                         break;
                                                                     }
                                                                 }
-                                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + "</font><br><br>";
+                                                                atestfeeders += "<font color=\"blue\">" + rnames[indtem].replace(/<([^>]+)>/g, "") + ":" + sfc[f].replace(/<([^>]+)>/g, "") + ";</font><br><br>";
                                                             } else {
                                                                 atestfeeders += sfc[f] + "<br><br>";
                                                             }
@@ -307,23 +305,23 @@ function login() {
 
             for (var y = i == 0 ? 0 : fdv[i - 1]; y < fdv[i]; y++) {
                 if (feederchk.indexOf(y.toString()) == -1) {
-                    fs += sfc[y] + "<br><br>";
+                    fs += sfc[y].replace(/<([^>]+)>/g, "") + ";<br><br>";
                 }
             }
 
             if (fs.trim().length > 0) {
-                atest += "<tr><td style=\"word-wrap: break-word\">" + "Redundant Feeders:" + "</td><td style=\"color:grey;word-wrap: break-word\">" + fs.replace(/<([^>]+)>/g, "") + "</td></tr>";
+                atest += "<tr><td style=\"word-wrap: break-word\">" + "Redundant Feeders:" + "</td><td style=\"color:grey;word-wrap: break-word\">" + fs + "</td></tr>";
             }
 
             atest += "<tr><td colspan=\"2\" style=\"word-wrap: break-word\">" + backuporigin[i] + "</td></tr>";
 
             if (atest.length > 0) {
-                rdiv.innerHTML += rnames[i] + "<a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Show</a><br>";
+                rdiv.innerHTML += "<font size=\"6\">"+rnames[i]+"</font><a id=\"col_div_" + rnames[i] + "\" href=\"javascript:collapse('div_" + rnames[i] + "');\">Hide</a><br>";
                 var cdiv = document.createElement('div');
                 cdiv.setAttribute("id", "div_" + rnames[i]);
-                cdiv.setAttribute("style", "display:none;text-align:left;");
+                cdiv.setAttribute("style", "display:block;text-align: center;");
                 var ctable = document.createElement('table');
-                ctable.setAttribute("style", "table-layout: fixed; width: 100%");
+                ctable.setAttribute("style","table-layout: fixed; width: 80%; margin: 0 auto;");
                 ctable.setAttribute("border", "1");
                 var cth = document.createElement('thead');
                 cth.innerHTML = "<th width='500px'>Rules</th><th width='500px'>Feeders</th>";
@@ -334,8 +332,6 @@ function login() {
                 ctable.appendChild(ctb);
                 cdiv.appendChild(ctable);
                 rdiv.appendChild(cdiv);
-            } else {
-                document.getElementById('div_result_null').innerHTML += rnames[i] + "<br>";
             }
         }
 
