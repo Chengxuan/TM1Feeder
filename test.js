@@ -14,10 +14,12 @@ function login() {
     var backuporigin = [];
     for (var i in data) {
         var rfs = data[i].Rules.toString().trim();
-        backuporigin[i] = tm1syntaxparser.parse(rfs);
-        rfs = removeComments(rfs);
+        if(rfs.trim().length>0) {
+            backuporigin.push(tm1syntaxparser.parse(rfs));
+            rfs = removeComments(rfs);
 
-        rfs = rfs.replace(/;\n+/g, ";<br><br>").replace(/\s+/g, "").replace(/#/g, "<br><br>#");
+            rfs = rfs.replace(/;\n+/g, ";<br><br>").replace(/\s+/g, "").replace(/#/g, "<br><br>#");
+        }
 
         if (rfs.length > 0) {
             var s = tm1parser.parse(rfs);
