@@ -91,6 +91,41 @@ function login() {
 
 
                     }
+                }else{
+                    var jrules = jcontent[0].RULES;
+
+                    b = jrules.length + 1;
+                    var srules = scontent.splice(0, jrules.length);
+                    if (jrules.length == srules.length) {
+                        //rs = srules.join(";<br><br>");
+                        //fs = sfeeders.join(";<br><br>");
+                        for (var x in jrules) {
+
+                            for (var y in jrules[x]) {
+                                if (y == "RULE_DEF") {
+                                    var rarea = digstrings(jrules[x][y][0], data[i].Name.toString().trim().toLocaleLowerCase());
+                                    if (Array.isArray(rarea[0])) {
+                                        rarea = rarea[0];
+                                    }
+                                    var rexp = digstrings(jrules[x][y][1], data[i].Name.toString().trim().toLocaleLowerCase());
+                                    for (var re in rexp) {
+                                        if (Array.isArray(rexp[re][0])) {
+                                            rexp[re] = rexp[re][0];
+                                        }
+                                    }
+                                    var ttmp = {rarea: rarea, rexp: rexp};
+
+                                    trc.push(ttmp);
+                                    src.push(srules[x]);
+
+                                }
+                            }
+
+                        }
+                        rdv.push(src.length);
+                        fdv.push(0);
+                        rnames.push(data[i].Name);
+                    }
                 }
                 //} else {
                 //    var jrules = jcontent[0].RULES;

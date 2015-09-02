@@ -127,17 +127,25 @@ var digstrings = function myself(abstree, cube) {
                         switch (nm.toString()) {
                             case "*":
                                 if (v[0].NUMBER) {
-                                    if (v[1].NUMBER) {
+                                    if (v[1].NUMBER||v[0].NUMBER=='0') {
                                         tmp = [];
                                     } else {
                                         tmp = myself(v[1], cube);
                                     }
                                 } else {
                                     if (v[1].NUMBER) {
-                                        tmp = myself(v[0], cube);
+                                        if( v[1].NUMBER=='0'){
+                                            tmp = [];
+                                        }else {
+                                            tmp = myself(v[0], cube);
+                                        }
                                     } else {
-                                        tmp.push(myself(v[0], cube));
-                                        tmp.push(myself(v[1], cube));
+                                        if(myself(v[0], cube).length>0){
+                                            tmp.push(myself(v[0], cube));
+                                        }
+                                        if(myself(v[1],cube).length>0) {
+                                            tmp.push(myself(v[1], cube));
+                                        }
                                     }
                                 }
                                 break;

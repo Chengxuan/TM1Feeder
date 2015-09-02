@@ -75,7 +75,42 @@ function login() {
 
 
                 }
-            }
+            }else{
+                var jrules = jcontent[0].RULES;
+
+                b = jrules.length + 1;
+                var srules = scontent.splice(0, jrules.length);
+                if (jrules.length == srules.length) {
+                    //rs = srules.join(";<br><br>");
+                    //fs = sfeeders.join(";<br><br>");
+                    for (var x in jrules) {
+
+                        for (var y in jrules[x]) {
+                            if (y == "RULE_DEF") {
+                                var rarea = digstrings(jrules[x][y][0], data[i].Name.toString().trim().toLocaleLowerCase());
+                                if (Array.isArray(rarea[0])) {
+                                    rarea = rarea[0];
+                                }
+                                var rexp = digstrings(jrules[x][y][1], data[i].Name.toString().trim().toLocaleLowerCase());
+                                for (var re in rexp) {
+                                    if (Array.isArray(rexp[re][0])) {
+                                        rexp[re] = rexp[re][0];
+                                    }
+                                }
+                                var ttmp = {rarea: rarea, rexp: rexp};
+
+                                trc.push(ttmp);
+                                src.push(srules[x]);
+
+                            }
+                        }
+
+                    }
+                    rdv.push(src.length);
+                    fdv.push(0);
+                    rnames.push(data[i].Name);
+                }
+                }
             //} else {
             //    var jrules = jcontent[0].RULES;
             //    rs = scontent.join(";<br><br>");
@@ -343,16 +378,22 @@ function changeV(x){
     document.getElementById("txt_Content").value = "";
     switch (x) {
         case 0:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example of correct and optimal Feeders. \\n['Revenue']=N:['Price']*['Units'];\\n\\nfeeders;\\n\\n['Units']=>['Revenue'];\\n\"}]";
             break;
         case 1:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']+['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an underfeeding example;\\n['Price']=N:['Cost']+['Tax'];\\n\\nfeeders;\\n\\n['Cost']=>['Price'];\\n\"}]";
             break;
         case 2:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n['C']=>['A'];\\n['D']=>['A'];\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an overfeeding example;\\n['Revenue']=N:['Price']*['Units'];\\n\\nfeeders;\\n\\n['Units']=>['Revenue'];\\n['Price']=>['Revenue'];\\n['Irrelevant']=>['Revenue'];\"}]";
             break;
         case 3:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"X\",\"Rules\":\"['A']=N:['B']*['C'];\\n\\nfeeders;\\n\\n['B']=>['A'];\\n['C']=>DB('Y',!B,!C,'I');\\n\"},{\"Name\":\"Y\",\"Rules\":\"['I']=N:DB('Y','V',!C)+DB('X',!V,'C');\\n\\nfeeders;\\n\\n['V']=>['I'];\\n\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is a cross cube feeding example;\\n['Revenue']=N:['Price']*['Units'];\\n\\nfeeders;\\n\\n['Units']=>['Revenue'];\\n['Total']=>DB('Salary',!Price,!Revenue,'Bonus');# This Feeder feeds to 'Bonus' element in 'Salary' cube;\\n\"},{\"Name\":\"Salary\",\"Rules\":\"['Bonus']=N:['Unit Bonus']* DB('Sales',!Month,'Total');\\n# Feeder of this Rule is from 'Sales' cube.\\n\\n\\n\"}]";
+            break;
+        case 4:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool on numeric;\\n['Revenue']=N:['Price']*(5-5);# 5-5=0, so this Rule should not need Feeder.\\n['Price']= IF(1>0,0,'Cost');# 1>0 is a truth so that the result of this Rule is 0. Therefore this Rule need no Feeder.\\n\\nfeeders;\\n\\n\"}]";
+            break;
+        case 5:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool for Feeders on different levels;\\n['Price']=N:['Cost']+['Tax'];C:['Revenue']/['Units']; # This Rule have a C level Rule so that this Rule need no Feeder.\\n\\n\"}]";
             break;
         default:
             break;
