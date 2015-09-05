@@ -392,10 +392,22 @@ function changeV(x){
             document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is a cross cube feeding example;\\n['Revenue']=N:['Price']*['Units'];\\n\\nfeeders;\\n\\n['Units']=>['Revenue'];\\n['Total']=>DB('Salary',!Price,!Revenue,'Bonus');# This Feeder feeds to 'Bonus' element in 'Salary' cube;\\n\"},{\"Name\":\"Salary\",\"Rules\":\"['Bonus']=N:['Unit Bonus']* DB('Sales',!Month,'Total');\\n# Feeder of this Rule is from 'Sales' cube.\\n\\n\\n\"}]";
             break;
         case 4:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool on numeric;\\n['Revenue']=N:['Price']*(5-5);# 5-5=0, so this Rule should not need Feeder.\\n['Price']= IF(1>0,0,'Cost');# 1>0 is a truth so that the result of this Rule is 0. Therefore this Rule need no Feeder.\\n\\nfeeders;\\n\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sample\",\"Rules\":\"# This is an addition example;\\n['X']=N:['A']+['B'];\\n['Y']=['C']+0;\\n['Z']=['D']+1;\\n['H']=1+1;\\n\"}]";
             break;
         case 5:
-            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool for Feeders on different levels;\\n['Price']=N:['Cost']+['Tax'];C:['Revenue']/['Units']; # This Rule have a C level Rule so that this Rule need no Feeder.\\n\\n\"}]";
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sample\",\"Rules\":\"# This is an multiplication example;\\n['X']=N:['A']*['B'];\\n['Y']=['C']*0;\\n['Z']=['D']*1;\\n['H']=1*1;\\n\"}]";
+            break;
+        case 6:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sample\",\"Rules\":\"# This is an power example;\\n['X']=N:['A']^['B'];\\n['Y']=['C']^0;\\n['Z']=5^['D'];\\n['H']=0^['D'];\\n\"}]";
+            break;
+        case 7:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sample\",\"Rules\":\"# This is an IF example;\\n['X']=N:IF('A'>'B','C','D');\\n['Y']=N:IF('A'>'B',1,'E');\\n['Z']=N:IF('A'>'B',0,'F');\\n['H']=N:IF('A'>'B',1,1);\\n['I']=N:IF('A'>'B',0,0);\\n['J']=N:IF(1>0,'C','D');\\n['K']=N:IF(1>0,0,'D');\\n['L']=N:IF('A'>'B',1,0);\\n\\n\"}]";
+            break;
+        case 8:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool on numeric;\\n['Revenue']=N:['Price']*(5-5);\\n# 5-5=0, so this Rule should not need Feeder.\\n['Price']= N:IF(1>0,0,'Cost');\\n# 1>0 is a truth so that the result of this Rule is 0. Therefore this Rule need no Feeder.\\n\\nfeeders;\\n\\n\"}]";
+            break;
+        case 9:
+            document.getElementById("txt_Content").value = "[{\"Name\":\"Sales\",\"Rules\":\"# This is an example to demonstrate the incompleteness of our tool for Feeders on different levels;\\n['Price']=N:['Cost']+['Tax'];C:['Revenue']/['Units']; \\n# This Rule have a C level Rule so that this Rule need no Feeder.\\n\\n\"}]";
             break;
         default:
             break;
