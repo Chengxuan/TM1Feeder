@@ -227,11 +227,17 @@ var digstrings = function myself(abstree, cube) {
                             case "ATTRN":
                                 break;
                             case "IF":
+                                var exprs = Object.keys(v[1].EXPR_LIST[0]);
                                 if(myself(v[1].EXPR_LIST[1],cube).length==0 ){
                                     if(myself(v[1].EXPR_LIST[2],cube).length==0){
                                         if(v[1].EXPR_LIST[1].NUMBER){
                                             if(v[1].EXPR_LIST[1].NUMBER=='0'&&!v[1].EXPR_LIST[2].NUMBER){
-                                                tmp = myself(v[1].EXPR_LIST[0],cube);
+                                                if(exprs[0].indexOf("@")==-1){
+                                                    tmp = myself(v[1].EXPR_LIST[0],cube);
+                                                }else{
+                                                    tmp = [];
+                                                }
+
                                                 break;
                                             }else{
                                                 if(v[1].EXPR_LIST[2].NUMBER== v[1].EXPR_LIST[1].NUMBER){
@@ -241,25 +247,41 @@ var digstrings = function myself(abstree, cube) {
                                                 }else{
                                                     if(v[1].EXPR_LIST[1].NUMBER=='0'||v[1].EXPR_LIST[2].NUMBER=='0')
                                                     {
-                                                        tmp = myself(v[1].EXPR_LIST[0],cube);
+                                                        if(exprs[0].indexOf("@")==-1){
+                                                            tmp = myself(v[1].EXPR_LIST[0], cube);
+                                                        }else{
+                                                            tmp = [];
+                                                        }
                                                         break;
                                                     }
                                                 }
-                                                tmp = myself(v[1].EXPR_LIST[0],cube);
+                                                if(exprs[0].indexOf("@")==-1){
+                                                tmp = myself(v[1].EXPR_LIST[0],cube);}
+                                                else{
+                                                    tmp =[];
+                                                }
                                                 break;
                                             }
                                         }else{
 
                                             if(v[1].EXPR_LIST[2].NUMBER){
                                                 if(v[1].EXPR_LIST[2].NUMBER == '0'){
-                                                    tmp = myself(v[1].EXPR_LIST[0],cube);
+                                                    if(exprs[0].indexOf("@")==-1){
+                                                        tmp = myself(v[1].EXPR_LIST[0], cube);
+                                                    }else{
+                                                        tmp =[];
+                                                    }
                                                     break;
                                                 }else{
                                                     tmp =[];
                                                     break;
                                                 }
                                             }
-                                            tmp = myself(v[1].EXPR_LIST[0],cube);
+                                            if(exprs[0].indexOf("@")==-1){
+                                                tmp = myself(v[1].EXPR_LIST[0], cube);
+                                            }else{
+                                                tmp = [];
+                                            }
                                             break;
                                         }
                                         tmp=[];
@@ -269,18 +291,21 @@ var digstrings = function myself(abstree, cube) {
                                             if(v[1].EXPR_LIST[1].NUMBER=='0'){
                                                 var ttmp = [];
                                                 ttmp = myself(v[1].EXPR_LIST[2],cube);
-                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));
+                                                if(exprs[0].indexOf("@")==-1){
+                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));}
                                                 tmp.push(ttmp);
                                                 tmp.push(myself(v[1].EXPR_LIST[2],cube));
                                                 break;
                                             }else{
                                                 tmp = myself(v[1].EXPR_LIST[2],cube);
-                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));
+                                                if(exprs[0].indexOf("@")==-1){
+                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
                                                 break;
                                             }
                                         }else{
                                             tmp = myself(v[1].EXPR_LIST[2],cube);
-                                            tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));
+                                            if(exprs[0].indexOf("@")==-1){
+                                            tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
                                             tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[1],cube));
                                             break;
                                         }
@@ -292,69 +317,73 @@ var digstrings = function myself(abstree, cube) {
                                             if(v[1].EXPR_LIST[2].NUMBER=='0'){
                                                 var ttmp = [];
                                                 ttmp = myself(v[1].EXPR_LIST[1],cube);
-                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));
+                                                if(exprs[0].indexOf("@")==-1){
+                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));}
                                                 tmp.push(ttmp);
                                                 tmp.push(myself(v[1].EXPR_LIST[1],cube));
                                                 break;
                                             }else{
                                                 tmp = myself(v[1].EXPR_LIST[1],cube);
-                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));
+                                                if(exprs[0].indexOf("@")==-1){
+                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
                                                 break;
                                             }
                                         }
                                     }else{
                                         tmp = myself(v[1].EXPR_LIST[2],cube);
-                                        tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));
+                                        if(exprs[0].indexOf("@")==-1){
+                                        tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
                                         tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[1],cube));
                                         break;
                                     }
                                 }
                                 /*if(myself(v[1].EXPR_LIST[0],cube).length>0){
-                                var exprs = Object.keys(v[1].EXPR_LIST[0]);
-                                    var ttmp = [];
-                                    var tttmp = [];
-                                if (exprs.indexOf("=")!=-1||exprs.indexOf(">=")!=-1||exprs.indexOf("<=")!=-1||exprs.indexOf("<>")!=-1) {
-                                    ttmp = myself(v[1].EXPR_LIST[0], cube);
-                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[1], cube));
-                                    tttmp = myself(v[1].EXPR_LIST[1], cube);
-                                    tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    if(ttmp.length>0){
-                                        if(tttmp.length>0){
-                                            tmp = mergeArray(tmp, ttmp);
-                                            tmp = mergeArray(tmp, tttmp);
-                                        }else{
-                                            tmp = ttmp;
-                                        }
+                                 var exprs = Object.keys(v[1].EXPR_LIST[0]);
+                                 var ttmp = [];
+                                 var tttmp = [];
+                                 if (exprs.indexOf("=")!=-1||exprs.indexOf(">=")!=-1||exprs.indexOf("<=")!=-1||exprs.indexOf("<>")!=-1) {
+                                 ttmp = myself(v[1].EXPR_LIST[0], cube);
+                                 ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[1], cube));
+                                 tttmp = myself(v[1].EXPR_LIST[1], cube);
+                                 tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
+                                 if(ttmp.length>0){
+                                 if(tttmp.length>0){
+                                 tmp = mergeArray(tmp, ttmp);
+                                 tmp = mergeArray(tmp, tttmp);
+                                 }else{
+                                 tmp = ttmp;
+                                 }
 
-                                    }else{
-                                        if(tttmp.length>0){
-                                            tmp = tttmp;
-                                        }
-                                    }
-                                    break;
-                                }
-                                if (exprs.indexOf(">")!=-1||exprs.indexOf("<")!=-1) {
-                                    ttmp =  myself(v[1].EXPR_LIST[0], cube);
-                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    tttmp =  myself(v[1].EXPR_LIST[1], cube);
-                                    tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
-                                    if(ttmp.length>0){
-                                        if(tttmp.length>0){
-                                            tmp = mergeArray(tmp, ttmp);
-                                            tmp = mergeArray(tmp, tttmp);
-                                        }else{
-                                            tmp = ttmp;
-                                        }
+                                 }else{
+                                 if(tttmp.length>0){
+                                 tmp = tttmp;
+                                 }
+                                 }
+                                 break;
+                                 }
+                                 if (exprs.indexOf(">")!=-1||exprs.indexOf("<")!=-1) {
+                                 ttmp =  myself(v[1].EXPR_LIST[0], cube);
+                                 ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[2], cube));
+                                 tttmp =  myself(v[1].EXPR_LIST[1], cube);
+                                 tttmp = mergeArray(tttmp, myself(v[1].EXPR_LIST[2], cube));
+                                 if(ttmp.length>0){
+                                 if(tttmp.length>0){
+                                 tmp = mergeArray(tmp, ttmp);
+                                 tmp = mergeArray(tmp, tttmp);
+                                 }else{
+                                 tmp = ttmp;
+                                 }
 
-                                    }else{
-                                        if(tttmp.length>0){
-                                            tmp =tttmp;
-                                        }
-                                    }
-                                    break;
-                                }}
-                                tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[1], cube));
-                                tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[2], cube));*/
+                                 }else{
+                                 if(tttmp.length>0){
+                                 tmp =tttmp;
+                                 }
+                                 }
+                                 break;
+                                 }}
+                                 tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[1], cube));
+                                 tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[2], cube));*/
+
                                 break;
                             case "DB":
                                 var xx = v[1].EXPR_LIST.shift();
