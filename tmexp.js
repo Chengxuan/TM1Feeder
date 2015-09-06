@@ -94,7 +94,7 @@ function removeDuplicates(a) {
     for (var i = 0; i < a.length; i++) {
         var com = a[i].toString().split(":");
 
-        if (x.indexOf(a[i]) == -1 ) {
+        if (x.indexOf(a[i]) == -1) {
             x.push(a[i]);
         }
 
@@ -119,6 +119,32 @@ var digstrings = function myself(abstree, cube) {
                 var nm = ps[j];
                 var v = abstree[nm];
 
+                if (nm.toString().toUpperCase() == "AREA_DEFN") {
+                    var dim = "";
+                    if (v[0]) {
+                        if (Array.isArray(v[0])) {
+                            for (var id = 0; id < v[0].length; id++) {
+
+                                if (v[0][id].AREA_SCOPE) {
+                                    if(myself(v[0][id].AREA_SCOPE, "")[0]){
+                                        dim = myself(v[0][id].AREA_SCOPE, "")[0].replace(":","");
+                                        if(dim!=cube){
+                                            dim = myself(v[0][id].AREA_SCOPE, cube)[0]+":";
+                                        }
+                                    }else{
+                                        dim=cube;
+                                    }
+
+                                } else {
+                                    tmp = myself(v[0][id], dim);
+                                    return tmp;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
                 if (nm.toString().toUpperCase() == "AREA_ITEMS" && v.AREA_ITEM_SET) {
                     tmp = mergeArray(tmp, myself(v.AREA_ITEM_SET, cube));
                 }
@@ -127,7 +153,7 @@ var digstrings = function myself(abstree, cube) {
                         switch (nm.toString()) {
                             case "*":
                                 if (v[0].NUMBER) {
-                                    if (v[1].NUMBER||v[0].NUMBER=='0') {
+                                    if (v[1].NUMBER || v[0].NUMBER == '0') {
                                         tmp = [];
                                         break;
                                     } else {
@@ -136,18 +162,18 @@ var digstrings = function myself(abstree, cube) {
                                     }
                                 } else {
                                     if (v[1].NUMBER) {
-                                        if( v[1].NUMBER=='0'){
+                                        if (v[1].NUMBER == '0') {
                                             tmp = [];
                                             break;
-                                        }else {
+                                        } else {
                                             tmp = myself(v[0], cube);
                                             break;
                                         }
                                     } else {
-                                        if(myself(v[0], cube).length>0){
+                                        if (myself(v[0], cube).length > 0) {
                                             tmp.push(myself(v[0], cube));
                                         }
-                                        if(myself(v[1],cube).length>0) {
+                                        if (myself(v[1], cube).length > 0) {
                                             tmp.push(myself(v[1], cube));
                                         }
                                         break;
@@ -156,7 +182,7 @@ var digstrings = function myself(abstree, cube) {
                                 break;
                             case "\\":
                                 if (v[0].NUMBER) {
-                                    if (v[1].NUMBER||v[0].NUMBER=='0') {
+                                    if (v[1].NUMBER || v[0].NUMBER == '0') {
                                         tmp = [];
                                         break;
                                     } else {
@@ -165,18 +191,18 @@ var digstrings = function myself(abstree, cube) {
                                     }
                                 } else {
                                     if (v[1].NUMBER) {
-                                        if( v[1].NUMBER=='0'){
+                                        if (v[1].NUMBER == '0') {
                                             tmp = [];
                                             break;
-                                        }else {
+                                        } else {
                                             tmp = myself(v[0], cube);
                                             break;
                                         }
                                     } else {
-                                        if(myself(v[0], cube).length>0){
+                                        if (myself(v[0], cube).length > 0) {
                                             tmp.push(myself(v[0], cube));
                                         }
-                                        if(myself(v[1],cube).length>0) {
+                                        if (myself(v[1], cube).length > 0) {
                                             tmp.push(myself(v[1], cube));
                                         }
                                         break;
@@ -188,7 +214,7 @@ var digstrings = function myself(abstree, cube) {
                                 break;
                             case "/":
                                 if (v[0].NUMBER) {
-                                    if (v[1].NUMBER||v[0].NUMBER=='0') {
+                                    if (v[1].NUMBER || v[0].NUMBER == '0') {
                                         tmp = [];
                                         break;
                                     } else {
@@ -197,18 +223,18 @@ var digstrings = function myself(abstree, cube) {
                                     }
                                 } else {
                                     if (v[1].NUMBER) {
-                                        if( v[1].NUMBER=='0'){
+                                        if (v[1].NUMBER == '0') {
                                             tmp = [];
                                             break;
-                                        }else {
+                                        } else {
                                             tmp = myself(v[0], cube);
                                             break;
                                         }
                                     } else {
-                                        if(myself(v[0], cube).length>0){
+                                        if (myself(v[0], cube).length > 0) {
                                             tmp.push(myself(v[0], cube));
                                         }
-                                        if(myself(v[1],cube).length>0) {
+                                        if (myself(v[1], cube).length > 0) {
                                             tmp.push(myself(v[1], cube));
                                         }
                                         break;
@@ -228,112 +254,118 @@ var digstrings = function myself(abstree, cube) {
                                 break;
                             case "IF":
                                 var exprs = Object.keys(v[1].EXPR_LIST[0]);
-                                if(myself(v[1].EXPR_LIST[1],cube).length==0 ){
-                                    if(myself(v[1].EXPR_LIST[2],cube).length==0){
-                                        if(v[1].EXPR_LIST[1].NUMBER){
-                                            if(v[1].EXPR_LIST[1].NUMBER=='0'&&!v[1].EXPR_LIST[2].NUMBER){
-                                                if(exprs[0].indexOf("@")==-1){
-                                                    tmp = myself(v[1].EXPR_LIST[0],cube);
-                                                }else{
+                                if (myself(v[1].EXPR_LIST[1], cube).length == 0) {
+                                    if (myself(v[1].EXPR_LIST[2], cube).length == 0) {
+                                        if (v[1].EXPR_LIST[1].NUMBER) {
+                                            if (v[1].EXPR_LIST[1].NUMBER == '0' && !v[1].EXPR_LIST[2].NUMBER) {
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    tmp = myself(v[1].EXPR_LIST[0], cube);
+                                                } else {
                                                     tmp = [];
                                                 }
 
                                                 break;
-                                            }else{
-                                                if(v[1].EXPR_LIST[2].NUMBER== v[1].EXPR_LIST[1].NUMBER){
+                                            } else {
+                                                if (v[1].EXPR_LIST[2].NUMBER == v[1].EXPR_LIST[1].NUMBER) {
 
-                                                    tmp=[];
+                                                    tmp = [];
                                                     break;
-                                                }else{
-                                                    if(v[1].EXPR_LIST[1].NUMBER=='0'||v[1].EXPR_LIST[2].NUMBER=='0')
-                                                    {
-                                                        if(exprs[0].indexOf("@")==-1){
+                                                } else {
+                                                    if (v[1].EXPR_LIST[1].NUMBER == '0' || v[1].EXPR_LIST[2].NUMBER == '0') {
+                                                        if (exprs[0].indexOf("@") == -1) {
                                                             tmp = myself(v[1].EXPR_LIST[0], cube);
-                                                        }else{
+                                                        } else {
                                                             tmp = [];
                                                         }
                                                         break;
                                                     }
                                                 }
-                                                if(exprs[0].indexOf("@")==-1){
-                                                tmp = myself(v[1].EXPR_LIST[0],cube);}
-                                                else{
-                                                    tmp =[];
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    tmp = myself(v[1].EXPR_LIST[0], cube);
+                                                }
+                                                else {
+                                                    tmp = [];
                                                 }
                                                 break;
                                             }
-                                        }else{
+                                        } else {
 
-                                            if(v[1].EXPR_LIST[2].NUMBER){
-                                                if(v[1].EXPR_LIST[2].NUMBER == '0'){
-                                                    if(exprs[0].indexOf("@")==-1){
+                                            if (v[1].EXPR_LIST[2].NUMBER) {
+                                                if (v[1].EXPR_LIST[2].NUMBER == '0') {
+                                                    if (exprs[0].indexOf("@") == -1) {
                                                         tmp = myself(v[1].EXPR_LIST[0], cube);
-                                                    }else{
-                                                        tmp =[];
+                                                    } else {
+                                                        tmp = [];
                                                     }
                                                     break;
-                                                }else{
-                                                    tmp =[];
+                                                } else {
+                                                    tmp = [];
                                                     break;
                                                 }
                                             }
-                                            if(exprs[0].indexOf("@")==-1){
+                                            if (exprs[0].indexOf("@") == -1) {
                                                 tmp = myself(v[1].EXPR_LIST[0], cube);
-                                            }else{
+                                            } else {
                                                 tmp = [];
                                             }
                                             break;
                                         }
-                                        tmp=[];
+                                        tmp = [];
                                         break;
-                                    }else{
-                                        if(v[1].EXPR_LIST[1].NUMBER){
-                                            if(v[1].EXPR_LIST[1].NUMBER=='0'){
+                                    } else {
+                                        if (v[1].EXPR_LIST[1].NUMBER) {
+                                            if (v[1].EXPR_LIST[1].NUMBER == '0') {
                                                 var ttmp = [];
-                                                ttmp = myself(v[1].EXPR_LIST[2],cube);
-                                                if(exprs[0].indexOf("@")==-1){
-                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));}
+                                                ttmp = myself(v[1].EXPR_LIST[2], cube);
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[0], cube));
+                                                }
                                                 tmp.push(ttmp);
-                                                tmp.push(myself(v[1].EXPR_LIST[2],cube));
+                                                tmp.push(myself(v[1].EXPR_LIST[2], cube));
                                                 break;
-                                            }else{
-                                                tmp = myself(v[1].EXPR_LIST[2],cube);
-                                                if(exprs[0].indexOf("@")==-1){
-                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
+                                            } else {
+                                                tmp = myself(v[1].EXPR_LIST[2], cube);
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[0], cube));
+                                                }
                                                 break;
                                             }
-                                        }else{
-                                            tmp = myself(v[1].EXPR_LIST[2],cube);
-                                            if(exprs[0].indexOf("@")==-1){
-                                            tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
-                                            tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[1],cube));
+                                        } else {
+                                            tmp = myself(v[1].EXPR_LIST[2], cube);
+                                            if (exprs[0].indexOf("@") == -1) {
+                                                tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[0], cube));
+                                            }
+                                            tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[1], cube));
                                             break;
                                         }
                                     }
 
-                                }else{
-                                    if(myself(v[1].EXPR_LIST[2],cube).length==0){
-                                        if(v[1].EXPR_LIST[2].NUMBER){
-                                            if(v[1].EXPR_LIST[2].NUMBER=='0'){
+                                } else {
+                                    if (myself(v[1].EXPR_LIST[2], cube).length == 0) {
+                                        if (v[1].EXPR_LIST[2].NUMBER) {
+                                            if (v[1].EXPR_LIST[2].NUMBER == '0') {
                                                 var ttmp = [];
-                                                ttmp = myself(v[1].EXPR_LIST[1],cube);
-                                                if(exprs[0].indexOf("@")==-1){
-                                                ttmp = mergeArray(ttmp,myself(v[1].EXPR_LIST[0],cube));}
+                                                ttmp = myself(v[1].EXPR_LIST[1], cube);
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    ttmp = mergeArray(ttmp, myself(v[1].EXPR_LIST[0], cube));
+                                                }
                                                 tmp.push(ttmp);
-                                                tmp.push(myself(v[1].EXPR_LIST[1],cube));
+                                                tmp.push(myself(v[1].EXPR_LIST[1], cube));
                                                 break;
-                                            }else{
-                                                tmp = myself(v[1].EXPR_LIST[1],cube);
-                                                if(exprs[0].indexOf("@")==-1){
-                                                tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
+                                            } else {
+                                                tmp = myself(v[1].EXPR_LIST[1], cube);
+                                                if (exprs[0].indexOf("@") == -1) {
+                                                    tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[0], cube));
+                                                }
                                                 break;
                                             }
                                         }
-                                    }else{
-                                        tmp = myself(v[1].EXPR_LIST[2],cube);
-                                        if(exprs[0].indexOf("@")==-1){
-                                        tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[0],cube));}
-                                        tmp = mergeArray(tmp,myself(v[1].EXPR_LIST[1],cube));
+                                    } else {
+                                        tmp = myself(v[1].EXPR_LIST[2], cube);
+                                        if (exprs[0].indexOf("@") == -1) {
+                                            tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[0], cube));
+                                        }
+                                        tmp = mergeArray(tmp, myself(v[1].EXPR_LIST[1], cube));
                                         break;
                                     }
                                 }
